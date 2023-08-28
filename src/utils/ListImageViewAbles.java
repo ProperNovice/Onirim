@@ -18,16 +18,11 @@ public class ListImageViewAbles<T> implements Iterable<T> {
 	private CoordinatesList<T> coordinates = new CoordinatesList<>(this);
 	private ListCredentials listCredentials = null;
 
-	public ListImageViewAbles(Class<? extends ListCredentials> classListCredentials) {
-		this(classListCredentials, -1);
-	}
-
 	@SuppressWarnings("unchecked")
-	public ListImageViewAbles(Class<? extends ListCredentials> classListCredentials, int capacity) {
+	public ListImageViewAbles(Class<? extends ListCredentials> classListCredentials) {
 
 		this.arrayList = new ArrayListImageView<T>((ListImageViewAbles<IImageViewAble>) this,
 				() -> showListSize());
-		this.arrayList.setCapacity(capacity);
 
 		ListsManager.INSTANCE.lists.addLast((ListImageViewAbles<IImageViewAble>) this);
 
@@ -37,6 +32,8 @@ public class ListImageViewAbles<T> implements Iterable<T> {
 				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
 		}
+
+		this.arrayList.setCapacity(this.listCredentials.capacity);
 
 	}
 
@@ -137,7 +134,8 @@ public class ListImageViewAbles<T> implements Iterable<T> {
 		center = CoordinatesRelocateType.INSTANCE.translateRelocateTypeCoordinatesFindCenter(center,
 				imageView.getDimenions(), relocateTypeEnum);
 
-		this.numberImageViewIndicator.getListCredentials().rearrangeTypeEnum = RearrangeTypeEnum.PIVOT;
+		this.numberImageViewIndicator
+				.getListCredentials().rearrangeTypeEnum = RearrangeTypeEnum.PIVOT;
 
 		this.numberImageViewIndicator.getListCredentials().coordinatesList = center;
 		this.numberImageViewIndicator.getListCredentials();

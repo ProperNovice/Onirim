@@ -33,7 +33,10 @@ public class ListCredentials {
 	private Vector2 coordinatesListSave = null, gapBetweenComponentsSave = null;
 
 	public double listQuantityRatioImageViewDimensions = 0.5;
-	private double listQuantityRatioImageViewDimensionsSave = -1;
+	private double listQuantityRatioImageViewDimensionsSave = 0.5;
+
+	public int capacity = -1;
+	private int capacitySave = -1;
 
 	public final void saveCredentials() {
 
@@ -47,6 +50,7 @@ public class ListCredentials {
 		this.coordinatesListSave = this.coordinatesList;
 		this.gapBetweenComponentsSave = this.gapBetweenComponents;
 		this.listQuantityRatioImageViewDimensionsSave = this.listQuantityRatioImageViewDimensions;
+		this.capacitySave = this.capacity;
 
 	}
 
@@ -62,6 +66,7 @@ public class ListCredentials {
 		this.coordinatesList = this.coordinatesListSave;
 		this.gapBetweenComponents = this.gapBetweenComponentsSave;
 		this.listQuantityRatioImageViewDimensions = this.listQuantityRatioImageViewDimensionsSave;
+		this.capacity = this.capacitySave;
 
 	}
 
