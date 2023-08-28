@@ -10,10 +10,9 @@ public enum AnimationTimerFX {
 	private ArrayList<IUpdateAble> updateNextFrame = new ArrayList<>();
 	private ArrayList<IUpdateAble> updateEachFrame = new ArrayList<>();
 	private ArrayList<UpdateInterval> updateInterval = new ArrayList<>();
-	private Timer timer = new Timer();
 
 	private AnimationTimerFX() {
-
+		new Timer().start();
 	}
 
 	public void updateNextFrame(IUpdateAble updateAble) {
@@ -22,7 +21,6 @@ public enum AnimationTimerFX {
 			return;
 
 		this.updateNextFrame.addLast(updateAble);
-		this.timer.start();
 
 	}
 
@@ -32,21 +30,14 @@ public enum AnimationTimerFX {
 			return;
 
 		this.updateEachFrame.addLast(updateAble);
-		this.timer.start();
 
 	}
 
-	public void updateInterval(long interval, IUpdateAble updateAble) {
-
+	public void updateInterval(IUpdateAble updateAble, long interval) {
 		this.updateInterval.addLast(new UpdateInterval(updateAble, interval));
-		this.timer.start();
-
 	}
 
 	public void remove(IUpdateAble updateAble) {
-
-		if (this.updateEachFrame.contains(updateAble))
-			this.updateEachFrame.remove(updateAble);
 
 		for (UpdateInterval updateInterval : this.updateInterval.clone())
 			if (updateInterval.getUpdateAble().equals(updateAble))
@@ -72,19 +63,6 @@ public enum AnimationTimerFX {
 
 		for (UpdateInterval updateInterval : this.updateInterval)
 			updateInterval.update();
-
-		// check if timer stops
-
-		int updateSize = 0;
-
-		updateSize += this.updateNextFrame.size();
-		updateSize += this.updateEachFrame.size();
-		updateSize += this.updateInterval.size();
-
-		if (updateSize > 0)
-			return;
-
-		this.timer.stop();
 
 	}
 

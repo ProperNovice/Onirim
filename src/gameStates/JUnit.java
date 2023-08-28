@@ -2,6 +2,7 @@ package gameStates;
 
 import cards.Card;
 import cards.CardDoor;
+import cards.CardDreamNightmare;
 import cards.CardLabyrinthChamber;
 import enums.EColor;
 import enums.ESubType;
@@ -27,6 +28,15 @@ public class JUnit extends GameState {
 		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
 		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.SUN));
 		addCardToDeck(new CardLabyrinthChamber(EColor.GREEN, ESubType.KEY));
+		addCardToDeck(new CardDoor(EColor.BROWN));
+		addCardToDeck(new CardDoor(EColor.BROWN));
+		addCardToDeck(new CardDoor(EColor.BROWN));
+		addCardToDeck(new CardDreamNightmare());
+		addCardToDeck(new CardDreamNightmare());
+		addCardToDeck(new CardDreamNightmare());
+		addCardToDeck(new CardDreamNightmare());
+		addCardToDeck(new CardDreamNightmare());
+		getListsManager().deck.getArrayList().shuffle();
 
 //		addCardToDraw(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
 //		addCardToDraw(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
