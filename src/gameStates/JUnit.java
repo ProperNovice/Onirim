@@ -7,6 +7,8 @@ public class JUnit extends GameState {
 	@Override
 	public void execute() {
 
+		System.out.println(getListsManager().hand.getArrayList().size());
+
 	}
 
 }

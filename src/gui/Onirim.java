@@ -107,7 +107,7 @@ public class Onirim extends Application {
 		primaryStage.setX(
 				(Screen.getPrimary().getBounds().getWidth() - width) / 2 - this.pixesOnTheLeft);
 
-		if (Credentials.INSTANCE.dFrame.y == 1368)
+		if (Credentials.INSTANCE.dFrame.y == 1366)
 			primaryStage.setY(0);
 		else
 			primaryStage.setY((Screen.getPrimary().getBounds().getHeight() - height) / 2);

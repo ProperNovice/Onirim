@@ -1,7 +1,6 @@
 package utils;
 
 import listCredentials.ListCredentials;
-import managers.Credentials;
 import utils.Interfaces.IImageViewAble;
 
 public class NumberImageViewIndicator {
@@ -11,7 +10,7 @@ public class NumberImageViewIndicator {
 	private int digits = 1;
 
 	public NumberImageViewIndicator() {
-		this(Credentials.INSTANCE.selectEventHandlerAbleDimension);
+
 	}
 
 	public NumberImageViewIndicator(double dimension) {
@@ -19,14 +18,13 @@ public class NumberImageViewIndicator {
 	}
 
 	public NumberImageViewIndicator(double dimension, int digits) {
-
 		this.dimension = dimension;
 		this.digits = digits;
-		this.list = new ListImageViewAbles<>(ListCredentials.class);
-
 	}
 
 	public void setNumber(int number, double dimension) {
+
+		createList();
 
 		if (dimension == 0)
 			ShutDown.INSTANCE.execute();
@@ -84,6 +82,8 @@ public class NumberImageViewIndicator {
 
 	public void clear() {
 
+		createList();
+
 		for (IImageViewAble imageViewAble : this.list)
 			imageViewAble.getImageView().setVisible(false);
 
@@ -92,7 +92,19 @@ public class NumberImageViewIndicator {
 	}
 
 	public ListCredentials getListCredentials() {
+
+		createList();
 		return this.list.getListCredentials();
+
+	}
+
+	private void createList() {
+
+		if (this.list != null)
+			return;
+
+		this.list = new ListImageViewAbles<>(ListCredentials.class);
+
 	}
 
 }
