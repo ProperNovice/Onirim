@@ -39,13 +39,6 @@ public abstract class Card implements IImageViewAble {
 
 	}
 
-	public final void releaseIconPlay() {
-
-		this.iconPlay.getImageView().setVisible(false);
-		this.iconPlay = null;
-
-	}
-
 	public final void setIconDiscard() {
 
 		Vector2 vector2 = getImageView().getCoordinatesCenter();
@@ -54,6 +47,13 @@ public abstract class Card implements IImageViewAble {
 		this.iconDiscard = ObjectPool.INSTANCE.acquire(IconDiscard.class);
 		this.iconDiscard.getImageView().relocateCenter(vector2);
 		this.iconDiscard.setCard(this);
+
+	}
+
+	public final void releaseIconPlay() {
+
+		this.iconPlay.getImageView().setVisible(false);
+		this.iconPlay = null;
 
 	}
 

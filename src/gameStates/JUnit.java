@@ -43,10 +43,11 @@ public class JUnit extends GameState {
 //		addCardToDraw(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 
 //		addCardToBoard(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
-//		addCardToBoard(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
+		addCardToBoard(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
+		addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 //		addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 //		addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
-//		addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+		addCardToBoard(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
 
 //		addCardToLimbo(new CardLabyrinthChamber(EColor.BROWN, ESubType.SUN));
 //		addCardToLimbo(new CardLabyrinthChamber(EColor.RED, ESubType.MOON));

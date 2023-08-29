@@ -16,7 +16,7 @@ public enum Credentials {
 	public RearrangeTypeEnum rearrangeTypeEnumText = RearrangeTypeEnum.LINEAR;
 
 	public Vector2 dCard, dIcon;
-	public Vector2 cHand, cDeck, cDraw, cBoard, cDoors, cLimbo;
+	public Vector2 cHand, cDeck, cDraw, cBoard, cDoors, cLimbo, cDiscardPile;
 
 	private Credentials() {
 
@@ -97,6 +97,13 @@ public enum Credentials {
 		x += 3 * this.dGapBetweenComponents.x;
 		y = this.cDeck.y;
 		this.cLimbo = new Vector2(x, y);
+
+		// c discard pile
+
+		x = this.cHand.x;
+		x -= 2 * (this.dCard.x + this.dGapBetweenComponents.x);
+		y = this.cHand.y;
+		this.cDiscardPile = new Vector2(x, y);
 
 	}
 

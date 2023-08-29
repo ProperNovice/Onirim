@@ -14,8 +14,8 @@ public class ListCredentialsBoard extends ListCredentials {
 		super.rearrangeTypeEnum = RearrangeTypeEnum.PIVOT;
 		super.relocateTypeEnum = RelocateTypeEnum.CENTER;
 		super.gapBetweenComponents.x = Credentials.INSTANCE.dCard.x * 0.25;
-		super.directionEnumHorizontal = DirectionEnum.LEFT;
-		super.layerZListEnum = LayerZListEnum.TO_FRONT_FIRST_IMAGEVIEW;
+		super.directionEnumHorizontal = DirectionEnum.RIGHT;
+		super.layerZListEnum = LayerZListEnum.TO_BACK_FIRST_IMAGEVIEW;
 
 	}
 
