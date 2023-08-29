@@ -1,5 +1,6 @@
 package gameStatesDefault;
 
+import cards.Card;
 import enums.EText;
 import javafx.scene.input.KeyCode;
 import managers.ListsManager;
@@ -64,6 +65,18 @@ public abstract class GameState {
 
 	protected final ListsManager getListsManager() {
 		return ListsManager.INSTANCE;
+	}
+
+	public final void handleCardPressed(Card card) {
+
+	}
+
+	public void handleCardIconPlayPressed(Card card) {
+
+	}
+
+	public void handleCardIconDiscardPressed(Card card) {
+
 	}
 
 }

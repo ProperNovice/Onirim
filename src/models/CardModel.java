@@ -1,6 +1,7 @@
-package managers;
+package models;
 
 import cards.Card;
+import managers.ListsManager;
 import utils.ArrayList;
 import utils.Lock;
 

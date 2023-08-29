@@ -14,11 +14,11 @@ public class JUnit extends GameState {
 	@Override
 	public void execute() {
 
-//		addCardToHand(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
-//		addCardToHand(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
-//		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
-//		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
-//		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+		addCardToHand(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
+		addCardToHand(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
+		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 
 		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
 		addCardToDeck(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
@@ -61,7 +61,7 @@ public class JUnit extends GameState {
 //		addDoor(EColor.GREEN);
 //		addDoor(EColor.GREEN);
 
-		Flow.INSTANCE.executeGameState(DrawNewHand.class);
+		Flow.INSTANCE.executeGameState(PlayCard.class);
 
 	}
 

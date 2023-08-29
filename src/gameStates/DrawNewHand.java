@@ -3,8 +3,9 @@ package gameStates;
 import cards.Card;
 import cards.CardLabyrinthChamber;
 import gameStatesDefault.GameState;
-import managers.CardModel;
+import models.CardModel;
 import utils.Animation;
+import utils.Flow;
 
 public class DrawNewHand extends GameState {
 
@@ -30,6 +31,8 @@ public class DrawNewHand extends GameState {
 			CardModel.INSTANCE.shuffleDeck();
 
 		}
+
+		Flow.INSTANCE.executeGameState(PlayCard.class);
 
 	}
 
