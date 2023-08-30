@@ -17,7 +17,7 @@ public class JUnit extends GameState {
 		addCardToHand(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
 		addCardToHand(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
 		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
-		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+		addCardToHand(new CardLabyrinthChamber(EColor.BLUE, ESubType.KEY));
 		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 
 		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
@@ -29,7 +29,7 @@ public class JUnit extends GameState {
 		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.SUN));
 		addCardToDeck(new CardLabyrinthChamber(EColor.GREEN, ESubType.KEY));
 		addCardToDeck(new CardDoor(EColor.BROWN));
-		addCardToDeck(new CardDoor(EColor.BROWN));
+		addCardToDeck(new CardDoor(EColor.GREEN));
 		addCardToDeck(new CardDoor(EColor.BROWN));
 		addCardToDeck(new CardDreamNightmare());
 		addCardToDeck(new CardDreamNightmare());
@@ -43,11 +43,11 @@ public class JUnit extends GameState {
 //		addCardToDraw(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 
 //		addCardToBoard(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
-		addCardToBoard(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
 		addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
-//		addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
-//		addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 		addCardToBoard(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
+		// addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+//		addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+		addCardToBoard(new CardLabyrinthChamber(EColor.GREEN, ESubType.KEY));
 
 //		addCardToLimbo(new CardLabyrinthChamber(EColor.BROWN, ESubType.SUN));
 //		addCardToLimbo(new CardLabyrinthChamber(EColor.RED, ESubType.MOON));
@@ -90,13 +90,13 @@ public class JUnit extends GameState {
 
 	public void addCardToBoard(Card card) {
 
-		getListsManager().board.getArrayList().addLast(card);
+		getListsManager().board.getArrayList().addFirst(card);
 		getListsManager().board.relocateImageViews();
 
 	}
 
 	public void addDoor(EColor eColor) {
-		getListsManager().doors.addCardDoorRelocate(new CardDoor(eColor));
+		getListsManager().doors.addCardDoorAnimateSynchronousLock(new CardDoor(eColor));
 	}
 
 	public void addCardToLimbo(Card card) {

@@ -52,12 +52,18 @@ public abstract class Card implements IImageViewAble {
 
 	public final void releaseIconPlay() {
 
+		if (this.iconPlay == null)
+			return;
+
 		this.iconPlay.getImageView().setVisible(false);
 		this.iconPlay = null;
 
 	}
 
 	public final void releaseIconDiscard() {
+
+		if (this.iconDiscard == null)
+			return;
 
 		this.iconDiscard.getImageView().setVisible(false);
 		this.iconDiscard = null;

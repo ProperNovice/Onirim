@@ -4,6 +4,8 @@ import cards.Card;
 import cards.CardLabyrinthChamber;
 import enums.ESubType;
 import gameStatesDefault.GameState;
+import models.CardModel;
+import utils.Flow;
 
 public class PlayCard extends GameState {
 
@@ -11,16 +13,29 @@ public class PlayCard extends GameState {
 	public void execute() {
 
 		setUpCardsCanBePlayed();
+		setUpCardsCanBeDiscarded();
 
 	}
 
 	@Override
 	public void handleCardIconPlayPressed(Card card) {
 
+		CardModel.INSTANCE.releaseIconsFromList(getListsManager().hand);
+		CardModel.INSTANCE.transferCardFromHandToBoardHandleDoorDiscovered(card);
+
 	}
 
 	@Override
 	public void handleCardIconDiscardPressed(Card card) {
+
+		CardModel.INSTANCE.releaseIconsFromList(getListsManager().hand);
+
+		CardModel.INSTANCE.transferCardFromHandToDiscardPileAnimateAsynchronous(card);
+
+		CardLabyrinthChamber cardLabyrinthChamber = (CardLabyrinthChamber) card;
+		ESubType eSubType = cardLabyrinthChamber.getESubType();
+
+		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}
 
@@ -35,14 +50,11 @@ public class PlayCard extends GameState {
 
 		}
 
-		Card cardBoard = getListsManager().board.getArrayList().getLast();
+		Card cardBoard = getListsManager().board.getArrayList().getFirst();
 		CardLabyrinthChamber cardLabyrinthChamberBoard = (CardLabyrinthChamber) cardBoard;
 		ESubType eSubTypeBoard = cardLabyrinthChamberBoard.getESubType();
 
 		for (Card cardHand : getListsManager().hand) {
-
-			if (!(cardHand instanceof CardLabyrinthChamber))
-				continue;
 
 			CardLabyrinthChamber cardLabyrinthChamberHand = (CardLabyrinthChamber) cardHand;
 			ESubType eSubTypeHand = cardLabyrinthChamberHand.getESubType();
@@ -51,6 +63,13 @@ public class PlayCard extends GameState {
 				cardHand.setIconPlay();
 
 		}
+
+	}
+
+	private void setUpCardsCanBeDiscarded() {
+
+		for (Card card : getListsManager().hand)
+			card.setIconDiscard();
 
 	}
 
