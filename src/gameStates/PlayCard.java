@@ -29,13 +29,15 @@ public class PlayCard extends GameState {
 	public void handleCardIconDiscardPressed(Card card) {
 
 		CardModel.INSTANCE.releaseIconsFromList(getListsManager().hand);
-
 		CardModel.INSTANCE.transferCardFromHandToDiscardPileAnimateAsynchronous(card);
 
 		CardLabyrinthChamber cardLabyrinthChamber = (CardLabyrinthChamber) card;
 		ESubType eSubType = cardLabyrinthChamber.getESubType();
 
-		Flow.INSTANCE.executeGameState(DrawCard.class);
+		if (eSubType.equals(ESubType.KEY))
+			Flow.INSTANCE.executeGameState(TriggerProphecy.class);
+		else
+			Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}
 

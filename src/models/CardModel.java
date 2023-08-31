@@ -85,6 +85,28 @@ public enum CardModel {
 
 	}
 
+	public void transferCardFromDrawToDiscardPileAnimateSynchronousLock(Card card) {
+
+		ListsManager.INSTANCE.draw.getArrayList().remove(card);
+		ListsManager.INSTANCE.discardPile.getArrayList().addFirst(card);
+
+		ListsManager.INSTANCE.discardPile.relocateImageViews();
+		ListsManager.INSTANCE.draw.animateSynchronousLock();
+
+	}
+
+	public void transferCardFromDrawToDeckAnimateSynchronous(Card card) {
+
+		card.getImageView().flip();
+
+		ListsManager.INSTANCE.draw.getArrayList().remove(card);
+		ListsManager.INSTANCE.deck.getArrayList().addFirst(card);
+		ListsManager.INSTANCE.deck.relocateImageViews();
+
+		ListsManager.INSTANCE.draw.animateSynchronousLock();
+
+	}
+
 	public void releaseIconsFromList(ListImageViewAbles<Card> list) {
 
 		for (Card card : list) {

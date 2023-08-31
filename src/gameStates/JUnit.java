@@ -2,7 +2,6 @@ package gameStates;
 
 import cards.Card;
 import cards.CardDoor;
-import cards.CardDreamNightmare;
 import cards.CardLabyrinthChamber;
 import enums.EColor;
 import enums.ESubType;
@@ -23,20 +22,21 @@ public class JUnit extends GameState {
 		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
 		addCardToDeck(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
 		addCardToDeck(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+		addCardToDeck(new CardDoor(EColor.BROWN));
 		addCardToDeck(new CardLabyrinthChamber(EColor.GREEN, ESubType.SUN));
 		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.SUN));
-		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
-		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.SUN));
-		addCardToDeck(new CardLabyrinthChamber(EColor.GREEN, ESubType.KEY));
-		addCardToDeck(new CardDoor(EColor.BROWN));
-		addCardToDeck(new CardDoor(EColor.GREEN));
-		addCardToDeck(new CardDoor(EColor.BROWN));
-		addCardToDeck(new CardDreamNightmare());
-		addCardToDeck(new CardDreamNightmare());
-		addCardToDeck(new CardDreamNightmare());
-		addCardToDeck(new CardDreamNightmare());
-		addCardToDeck(new CardDreamNightmare());
-		getListsManager().deck.getArrayList().shuffle();
+//		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
+//		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.SUN));
+//		addCardToDeck(new CardLabyrinthChamber(EColor.GREEN, ESubType.KEY));
+//		addCardToDeck(new CardDoor(EColor.BROWN));
+//		addCardToDeck(new CardDoor(EColor.GREEN));
+//		addCardToDeck(new CardDoor(EColor.BROWN));
+//		addCardToDeck(new CardDreamNightmare());
+//		addCardToDeck(new CardDreamNightmare());
+//		addCardToDeck(new CardDreamNightmare());
+//		addCardToDeck(new CardDreamNightmare());
+//		addCardToDeck(new CardDreamNightmare());
+//		getListsManager().deck.getArrayList().shuffle();
 
 //		addCardToDraw(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
 //		addCardToDraw(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
@@ -62,7 +62,7 @@ public class JUnit extends GameState {
 //		addDoor(EColor.GREEN);
 //		addDoor(EColor.GREEN);
 
-		Flow.INSTANCE.executeGameState(PlayCard.class);
+		Flow.INSTANCE.executeGameState(TriggerProphecy.class);
 
 	}
 
