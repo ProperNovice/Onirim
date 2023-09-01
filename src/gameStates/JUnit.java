@@ -2,6 +2,7 @@ package gameStates;
 
 import cards.Card;
 import cards.CardDoor;
+import cards.CardDreamNightmare;
 import cards.CardLabyrinthChamber;
 import enums.EColor;
 import enums.ESubType;
@@ -14,15 +15,17 @@ public class JUnit extends GameState {
 	public void execute() {
 
 		addCardToHand(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
-		addCardToHand(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
-		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
-		addCardToHand(new CardLabyrinthChamber(EColor.BLUE, ESubType.KEY));
-		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+//		addCardToHand(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
+//		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+//		addCardToHand(new CardLabyrinthChamber(EColor.BLUE, ESubType.KEY));
+//		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 
+		addCardToDeck(new CardDreamNightmare());
 		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
 		addCardToDeck(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
 		addCardToDeck(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 		addCardToDeck(new CardDoor(EColor.BROWN));
+		addCardToDeck(new CardDoor(EColor.BLUE));
 		addCardToDeck(new CardLabyrinthChamber(EColor.GREEN, ESubType.SUN));
 		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.SUN));
 //		addCardToDeck(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
@@ -45,7 +48,7 @@ public class JUnit extends GameState {
 //		addCardToBoard(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
 		addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 		addCardToBoard(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
-		// addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+//		addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 //		addCardToBoard(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 		addCardToBoard(new CardLabyrinthChamber(EColor.GREEN, ESubType.KEY));
 
@@ -62,7 +65,7 @@ public class JUnit extends GameState {
 //		addDoor(EColor.GREEN);
 //		addDoor(EColor.GREEN);
 
-		Flow.INSTANCE.executeGameState(TriggerProphecy.class);
+		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}
 
@@ -96,7 +99,7 @@ public class JUnit extends GameState {
 	}
 
 	public void addDoor(EColor eColor) {
-		getListsManager().doors.addCardDoorAnimateSynchronousLock(new CardDoor(eColor));
+		getListsManager().doors.addCardDoorAnimateAsynchronous(new CardDoor(eColor));
 	}
 
 	public void addCardToLimbo(Card card) {

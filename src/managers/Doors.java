@@ -5,7 +5,6 @@ import utils.Animation;
 import utils.ArrayList;
 import utils.Enums.AnimationSynchEnum;
 import utils.HashMap;
-import utils.Lock;
 import utils.Vector2;
 
 public enum Doors {
@@ -21,12 +20,12 @@ public enum Doors {
 
 	}
 
-	public void addCardDoorAnimateSynchronousLock(CardDoor cardDoor) {
+	public void addCardDoorAnimateAsynchronous(CardDoor cardDoor) {
 
 		this.doorPositions.addLast(new DoorPosition());
 		this.doorPositions.getLast().addCardDoor(cardDoor);
 		animateDoorPositions();
-		Lock.INSTANCE.lock();
+//		Lock.INSTANCE.lock();
 
 	}
 
@@ -37,7 +36,7 @@ public enum Doors {
 //			doorPosition
 //					.relocateDoor(this.vectors2.getValue(this.doorPositions.indexOf(doorPosition)));
 
-			doorPosition.animateDoorSynchronous(
+			doorPosition.animateDoorAsynchronous(
 					this.vectors2.getValue(this.doorPositions.indexOf(doorPosition)));
 
 		}
@@ -85,9 +84,9 @@ public enum Doors {
 //			this.cardDoor.getImageView().relocateTopLeft(vector2);
 //		}
 
-		public void animateDoorSynchronous(Vector2 vector2) {
+		public void animateDoorAsynchronous(Vector2 vector2) {
 			Animation.INSTANCE.animateTopLeft(this.cardDoor, vector2,
-					AnimationSynchEnum.SYNCHRONOUS);
+					AnimationSynchEnum.ASYNCHRONOUS);
 		}
 
 	}

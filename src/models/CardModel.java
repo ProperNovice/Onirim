@@ -123,9 +123,16 @@ public enum CardModel {
 		card.getImageView().flip();
 
 		ListsManager.INSTANCE.deck.getArrayList().remove(card);
-		ListsManager.INSTANCE.doors.addCardDoorAnimateSynchronousLock((CardDoor) card);
+		ListsManager.INSTANCE.doors.addCardDoorAnimateAsynchronous((CardDoor) card);
 
 		shuffleDeck();
+
+	}
+
+	public void transferCardFromDrawToDoorsShuffleDeck() {
+
+		Card card = ListsManager.INSTANCE.draw.getArrayList().removeFirst();
+		ListsManager.INSTANCE.doors.addCardDoorAnimateAsynchronous((CardDoor) card);
 
 	}
 
