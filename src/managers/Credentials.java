@@ -13,7 +13,7 @@ public enum Credentials {
 			animationStep = 4;
 	public Vector2 dFrame, dGapBetweenComponents, dGapBetweenComponentsLineCast;
 	public Vector2 cTextPanel, cImageViewIndicator;
-	public RearrangeTypeEnum rearrangeTypeEnumText = RearrangeTypeEnum.LINEAR;
+	public RearrangeTypeEnum rearrangeTypeEnumText = RearrangeTypeEnum.PIVOT;
 
 	public Vector2 dCard, dIcon;
 	public Vector2 cHand, cDeck, cDraw, cBoard, cDoors, cLimbo, cDiscardPile;
@@ -25,10 +25,6 @@ public enum Credentials {
 		this.dFrame = new Vector2(2560 - 4 - 636, 1368 - 2);
 		this.dGapBetweenComponents = new Vector2(4, 4);
 		this.dGapBetweenComponentsLineCast = this.dGapBetweenComponents;
-
-		// c text panel
-
-		this.cTextPanel = new Vector2(x, y);
 
 		// c image view indicator
 
@@ -109,6 +105,14 @@ public enum Credentials {
 
 		y = this.dCard.y / 5;
 		this.textHeight = y;
+
+		// c text panel
+
+		x = this.cDraw.x;
+		x += this.dCard.x / 2;
+		x += this.dGapBetweenComponents.x;
+		y = this.cDraw.y;
+		this.cTextPanel = new Vector2(x, y);
 
 	}
 

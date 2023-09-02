@@ -4,6 +4,7 @@ import cards.Card;
 import cards.CardDoor;
 import cards.CardLabyrinthChamber;
 import enums.EColor;
+import enums.ESubType;
 import managers.ListsManager;
 import utils.ArrayList;
 import utils.ListImageViewAbles;
@@ -95,6 +96,15 @@ public enum CardModel {
 
 	}
 
+	public void transferCardFromDrawToDiscardPileRelocate() {
+
+		Card card = ListsManager.INSTANCE.draw.getArrayList().removeFirst();
+		ListsManager.INSTANCE.discardPile.getArrayList().addFirst(card);
+
+		ListsManager.INSTANCE.discardPile.relocateImageViews();
+
+	}
+
 	public void transferCardFromDrawToDeckAnimateSynchronous(Card card) {
 
 		card.getImageView().flip();
@@ -179,6 +189,28 @@ public enum CardModel {
 			return;
 
 		}
+
+	}
+
+	public ArrayList<CardLabyrinthChamber> getKeysInHand() {
+
+		ArrayList<CardLabyrinthChamber> list = new ArrayList<>();
+
+		for (Card card : ListsManager.INSTANCE.hand) {
+
+			if (!(card instanceof CardLabyrinthChamber))
+				continue;
+
+			CardLabyrinthChamber cardLabyrinthChamber = (CardLabyrinthChamber) card;
+
+			if (!cardLabyrinthChamber.getESubType().equals(ESubType.KEY))
+				continue;
+
+			list.addLast(cardLabyrinthChamber);
+
+		}
+
+		return list;
 
 	}
 

@@ -15,9 +15,9 @@ public class JUnit extends GameState {
 	public void execute() {
 
 		addCardToHand(new CardLabyrinthChamber(EColor.BROWN, ESubType.KEY));
-//		addCardToHand(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
-//		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
-//		addCardToHand(new CardLabyrinthChamber(EColor.BLUE, ESubType.KEY));
+		addCardToHand(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
+		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
+		addCardToHand(new CardLabyrinthChamber(EColor.BLUE, ESubType.KEY));
 //		addCardToHand(new CardLabyrinthChamber(EColor.RED, ESubType.SUN));
 
 		addCardToDeck(new CardDreamNightmare());
@@ -56,8 +56,8 @@ public class JUnit extends GameState {
 //		addCardToLimbo(new CardLabyrinthChamber(EColor.RED, ESubType.MOON));
 //		addCardToLimbo(new CardLabyrinthChamber(EColor.GREEN, ESubType.MOON));
 
-//		addDoor(EColor.GREEN);
-//		addDoor(EColor.BROWN);
+		addDoor(EColor.GREEN);
+		addDoor(EColor.BROWN);
 //		addDoor(EColor.GREEN);
 //		addDoor(EColor.GREEN);
 //		addDoor(EColor.GREEN);

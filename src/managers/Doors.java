@@ -16,7 +16,17 @@ public enum Doors {
 
 	private Doors() {
 
-		createVectors2();
+		createVector2();
+
+	}
+
+	public boolean containsAtLeastOneDoor() {
+
+		for (DoorPosition doorPosition : this.doorPositions)
+			if (doorPosition.containsDoor())
+				return true;
+
+		return false;
 
 	}
 
@@ -43,7 +53,7 @@ public enum Doors {
 
 	}
 
-	private void createVectors2() {
+	private void createVector2() {
 
 		for (int counter = 0; counter < 8; counter++) {
 
@@ -87,6 +97,10 @@ public enum Doors {
 		public void animateDoorAsynchronous(Vector2 vector2) {
 			Animation.INSTANCE.animateTopLeft(this.cardDoor, vector2,
 					AnimationSynchEnum.ASYNCHRONOUS);
+		}
+
+		public boolean containsDoor() {
+			return this.cardDoor != null;
 		}
 
 	}

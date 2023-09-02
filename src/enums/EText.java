@@ -12,6 +12,10 @@ public enum EText {
 	VOID("", TextTypeEnum.INDICATOR),
 	YOU_LOST("You lost", TextTypeEnum.INDICATOR),
 	YOU_WON("You won", TextTypeEnum.INDICATOR),
+	DISCARD_A_KEY_FROM_YOUR_HAND("Discard a key from your hand", TextTypeEnum.OPTION),
+	PLACE_A_DOOR_IN_LIMBO("Place a door in limbo", TextTypeEnum.OPTION),
+	REVEAL_THE_FIRST_FIVE_CARDS("Reveal the first five cards", TextTypeEnum.OPTION),
+	DISCARD_YOUR_HAND("Discard your hand", TextTypeEnum.OPTION),
 
 	;
 

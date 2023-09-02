@@ -5,7 +5,6 @@ import cards.CardDoor;
 import cards.CardDreamNightmare;
 import cards.CardLabyrinth;
 import cards.CardLabyrinthChamber;
-import enums.ESubType;
 import gameStatesDefault.GameState;
 import models.CardModel;
 import utils.Flow;
@@ -36,15 +35,7 @@ public class DrawCard extends GameState {
 
 	private void handleCardDoorDrawn(CardDoor cardDoor) {
 
-		for (Card card : getListsManager().hand) {
-
-			if (!(card instanceof CardLabyrinthChamber))
-				continue;
-
-			CardLabyrinthChamber cardLabyrinthChamber = (CardLabyrinthChamber) card;
-
-			if (!cardLabyrinthChamber.getESubType().equals(ESubType.KEY))
-				continue;
+		for (CardLabyrinthChamber cardLabyrinthChamber : CardModel.INSTANCE.getKeysInHand()) {
 
 			if (!cardLabyrinthChamber.getEColor().equals(cardDoor.getEColor()))
 				continue;
