@@ -10,11 +10,11 @@ import utils.ArrayList;
 import utils.ListImageViewAbles;
 import utils.Lock;
 
-public enum CardModel {
+public enum ModelCard {
 
 	INSTANCE;
 
-	private CardModel() {
+	private ModelCard() {
 
 	}
 
@@ -211,6 +211,17 @@ public enum CardModel {
 		}
 
 		return list;
+
+	}
+
+	public void transferCardFromDoorsToDeckShuffleDeckAnimateSynchronousLock(CardDoor cardDoor) {
+
+		ListsManager.INSTANCE.doors.removeDoorAnimateAsynchronous(cardDoor);
+		ListsManager.INSTANCE.deck.getArrayList().addFirst(cardDoor);
+		ListsManager.INSTANCE.deck.animateSynchronousLock();
+
+		cardDoor.getImageView().flipBack();
+		shuffleDeck();
 
 	}
 

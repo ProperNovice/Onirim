@@ -4,7 +4,7 @@ import cards.Card;
 import cards.CardLabyrinthChamber;
 import enums.EColor;
 import gameStatesDefault.GameState;
-import models.CardModel;
+import models.ModelCard;
 import utils.ArrayList;
 import utils.Flow;
 
@@ -13,14 +13,14 @@ public class ResolveCardNightmareDiscardAKeyFromHand extends GameState {
 	@Override
 	public void execute() {
 
-		ArrayList<CardLabyrinthChamber> listKeys = CardModel.INSTANCE.getKeysInHand();
-		ArrayList<EColor> listDifferentColors = new ArrayList<>();
+		ArrayList<CardLabyrinthChamber> listKeys = ModelCard.INSTANCE.getKeysInHand();
+		ArrayList<EColor> listDifferentColors = new ArrayList<>(1);
 
 		for (CardLabyrinthChamber cardLabyrinthChamber : listKeys)
 			if (!listDifferentColors.contains(cardLabyrinthChamber.getEColor()))
 				listDifferentColors.addLast(cardLabyrinthChamber.getEColor());
 
-		if (listDifferentColors.size() == 1)
+		if (listDifferentColors.isMaxCapacity())
 			handleCardIconDiscardPressed(listKeys.getFirst());
 
 		else {
@@ -35,8 +35,8 @@ public class ResolveCardNightmareDiscardAKeyFromHand extends GameState {
 	@Override
 	public void handleCardIconDiscardPressed(Card card) {
 
-		CardModel.INSTANCE.releaseIconsFromList(getListsManager().hand);
-		CardModel.INSTANCE.transferCardFromHandToDiscardPileAnimateAsynchronous(card);
+		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().hand);
+		ModelCard.INSTANCE.transferCardFromHandToDiscardPileAnimateAsynchronous(card);
 		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}

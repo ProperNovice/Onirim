@@ -6,7 +6,7 @@ import cards.CardDreamNightmare;
 import cards.CardLabyrinth;
 import cards.CardLabyrinthChamber;
 import gameStatesDefault.GameState;
-import models.CardModel;
+import models.ModelCard;
 import utils.Flow;
 
 public class DrawCard extends GameState {
@@ -14,7 +14,7 @@ public class DrawCard extends GameState {
 	@Override
 	public void execute() {
 
-		Card card = CardModel.INSTANCE.transferOneCardFromDeckToDrawAnimateSynchronousLock();
+		Card card = ModelCard.INSTANCE.transferOneCardFromDeckToDrawAnimateSynchronousLock();
 		Class<? extends Card> cardClass = card.getClass();
 
 		if (CardLabyrinth.class.isAssignableFrom(cardClass))
@@ -28,14 +28,14 @@ public class DrawCard extends GameState {
 
 	private void handleCardLabyrinthDrawn() {
 
-		CardModel.INSTANCE.transferCardFromDrawToHandAnimateAsynchronous();
+		ModelCard.INSTANCE.transferCardFromDrawToHandAnimateAsynchronous();
 		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}
 
 	private void handleCardDoorDrawn(CardDoor cardDoor) {
 
-		for (CardLabyrinthChamber cardLabyrinthChamber : CardModel.INSTANCE.getKeysInHand()) {
+		for (CardLabyrinthChamber cardLabyrinthChamber : ModelCard.INSTANCE.getKeysInHand()) {
 
 			if (!cardLabyrinthChamber.getEColor().equals(cardDoor.getEColor()))
 				continue;
@@ -45,7 +45,7 @@ public class DrawCard extends GameState {
 
 		}
 
-		CardModel.INSTANCE.transferCardFromDrawToLimboAnimateAsynchronous();
+		ModelCard.INSTANCE.transferCardFromDrawToLimboAnimateAsynchronous();
 		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}

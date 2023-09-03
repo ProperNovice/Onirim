@@ -2,7 +2,7 @@ package gameStates;
 
 import enums.EText;
 import gameStatesDefault.GameState;
-import models.CardModel;
+import models.ModelCard;
 import utils.ArrayList;
 import utils.Flow;
 import utils.HashMap;
@@ -30,21 +30,21 @@ public class ResolveCardNightmare extends GameState {
 	@Override
 	protected void executeTextOption(EText eText) {
 
-		CardModel.INSTANCE.transferCardFromDrawToDiscardPileRelocate();
+		ModelCard.INSTANCE.transferCardFromDrawToDiscardPileRelocate();
 		Flow.INSTANCE.executeGameState(this.map.getValue(eText));
 
 	}
 
 	private void discardKeyHandFromYourHand() {
 
-		if (!CardModel.INSTANCE.getKeysInHand().isEmpty())
+		if (!ModelCard.INSTANCE.getKeysInHand().isEmpty())
 			this.list.addLast(EText.DISCARD_A_KEY_FROM_YOUR_HAND);
 
 	}
 
 	private void placeDoorInLimbo() {
 
-		if (getListsManager().doors.containsAtLeastOneDoor())
+		if (!getListsManager().doors.getDoors().isEmpty())
 			this.list.addLast(EText.PLACE_A_DOOR_IN_LIMBO);
 
 	}
@@ -60,6 +60,9 @@ public class ResolveCardNightmare extends GameState {
 
 		this.map.put(EText.DISCARD_A_KEY_FROM_YOUR_HAND,
 				ResolveCardNightmareDiscardAKeyFromHand.class);
+		this.map.put(EText.PLACE_A_DOOR_IN_LIMBO, ResolveCardNightmarePlaceDoorInLimbo.class);
+		this.map.put(EText.REVEAL_THE_FIRST_FIVE_CARDS,
+				ResolveCardNightmareRevealFirstFiveCards.class);
 
 	}
 

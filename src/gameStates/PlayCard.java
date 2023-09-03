@@ -4,7 +4,7 @@ import cards.Card;
 import cards.CardLabyrinthChamber;
 import enums.ESubType;
 import gameStatesDefault.GameState;
-import models.CardModel;
+import models.ModelCard;
 import utils.Flow;
 
 public class PlayCard extends GameState {
@@ -20,16 +20,16 @@ public class PlayCard extends GameState {
 	@Override
 	public void handleCardIconPlayPressed(Card card) {
 
-		CardModel.INSTANCE.releaseIconsFromList(getListsManager().hand);
-		CardModel.INSTANCE.transferCardFromHandToBoardHandleDoorDiscovered(card);
+		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().hand);
+		ModelCard.INSTANCE.transferCardFromHandToBoardHandleDoorDiscovered(card);
 
 	}
 
 	@Override
 	public void handleCardIconDiscardPressed(Card card) {
 
-		CardModel.INSTANCE.releaseIconsFromList(getListsManager().hand);
-		CardModel.INSTANCE.transferCardFromHandToDiscardPileAnimateAsynchronous(card);
+		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().hand);
+		ModelCard.INSTANCE.transferCardFromHandToDiscardPileAnimateAsynchronous(card);
 
 		CardLabyrinthChamber cardLabyrinthChamber = (CardLabyrinthChamber) card;
 		ESubType eSubType = cardLabyrinthChamber.getESubType();

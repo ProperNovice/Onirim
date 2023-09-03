@@ -16,17 +16,30 @@ public enum Doors {
 
 	private Doors() {
 
+		createDoorPositions();
 		createVector2();
 
 	}
 
-	public boolean containsAtLeastOneDoor() {
+	public void removeDoorAnimateAsynchronous(CardDoor cardDoor) {
 
 		for (DoorPosition doorPosition : this.doorPositions)
-			if (doorPosition.containsDoor())
-				return true;
+			if (doorPosition.containsCardDoor(cardDoor))
+				doorPosition.removeCardDoor();
 
-		return false;
+		animateDoorPositions();
+
+	}
+
+	public ArrayList<CardDoor> getDoors() {
+
+		ArrayList<CardDoor> list = new ArrayList<>();
+
+		for (DoorPosition doorPosition : this.doorPositions)
+			if (doorPosition.containsCardDoor())
+				list.addLast(doorPosition.getCardDoor());
+
+		return list;
 
 	}
 
@@ -41,15 +54,23 @@ public enum Doors {
 
 	private void animateDoorPositions() {
 
-		for (DoorPosition doorPosition : this.doorPositions) {
+		for (DoorPosition doorPosition : this.doorPositions.clone())
+			if (doorPosition.isEmpty()) {
+				this.doorPositions.remove(doorPosition);
+				this.doorPositions.addLast(doorPosition);
+			}
 
-//			doorPosition
-//					.relocateDoor(this.vectors2.getValue(this.doorPositions.indexOf(doorPosition)));
+		for (DoorPosition doorPosition : this.doorPositions)
+			if (!doorPosition.isEmpty())
+				doorPosition.animateAsynchronous(
+						this.vectors2.getValue(this.doorPositions.indexOf(doorPosition)));
 
-			doorPosition.animateDoorAsynchronous(
-					this.vectors2.getValue(this.doorPositions.indexOf(doorPosition)));
+	}
 
-		}
+	private void createDoorPositions() {
+
+		for (int counter = 1; counter <= 8; counter++)
+			this.doorPositions.addLast(new DoorPosition());
 
 	}
 
@@ -81,26 +102,33 @@ public enum Doors {
 			this.cardDoor = cardDoor;
 		}
 
-//		public CardDoor removeCardDoor() {
-//
-//			CardDoor cardDoor = this.cardDoor;
-//			this.cardDoor = null;
-//
-//			return cardDoor;
-//
-//		}
+		public void removeCardDoor() {
+			this.cardDoor = null;
+		}
 
-//		public void relocateDoor(Vector2 vector2) {
-//			this.cardDoor.getImageView().relocateTopLeft(vector2);
-//		}
-
-		public void animateDoorAsynchronous(Vector2 vector2) {
+		public void animateAsynchronous(Vector2 vector2) {
 			Animation.INSTANCE.animateTopLeft(this.cardDoor, vector2,
 					AnimationSynchEnum.ASYNCHRONOUS);
 		}
 
-		public boolean containsDoor() {
+		public boolean containsCardDoor() {
 			return this.cardDoor != null;
+		}
+
+		public boolean containsCardDoor(CardDoor cardDoor) {
+
+			if (this.cardDoor == null || !this.cardDoor.equals(cardDoor))
+				return false;
+			else
+				return true;
+		}
+
+		public CardDoor getCardDoor() {
+			return this.cardDoor;
+		}
+
+		public boolean isEmpty() {
+			return this.cardDoor == null;
 		}
 
 	}

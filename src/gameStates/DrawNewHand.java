@@ -3,7 +3,7 @@ package gameStates;
 import cards.Card;
 import cards.CardLabyrinthChamber;
 import gameStatesDefault.GameState;
-import models.CardModel;
+import models.ModelCard;
 import utils.Animation;
 import utils.Flow;
 
@@ -14,12 +14,12 @@ public class DrawNewHand extends GameState {
 
 		while (!getListsManager().hand.getArrayList().isMaxCapacity()) {
 
-			Card card = CardModel.INSTANCE.transferOneCardFromDeckToDrawAnimateSynchronousLock();
+			Card card = ModelCard.INSTANCE.transferOneCardFromDeckToDrawAnimateSynchronousLock();
 
 			if (card instanceof CardLabyrinthChamber)
-				CardModel.INSTANCE.transferCardFromDrawToHandAnimateAsynchronous();
+				ModelCard.INSTANCE.transferCardFromDrawToHandAnimateAsynchronous();
 			else
-				CardModel.INSTANCE.transferCardFromDrawToLimboAnimateAsynchronous();
+				ModelCard.INSTANCE.transferCardFromDrawToLimboAnimateAsynchronous();
 
 		}
 
@@ -27,8 +27,8 @@ public class DrawNewHand extends GameState {
 
 		if (!getListsManager().limbo.getArrayList().isEmpty()) {
 
-			CardModel.INSTANCE.transferCardsFromLimboToDeckAnimateSynchronousLock();
-			CardModel.INSTANCE.shuffleDeck();
+			ModelCard.INSTANCE.transferCardsFromLimboToDeckAnimateSynchronousLock();
+			ModelCard.INSTANCE.shuffleDeck();
 
 		}
 

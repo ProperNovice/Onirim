@@ -5,7 +5,7 @@ import cards.CardDoor;
 import cards.CardLabyrinthChamber;
 import enums.ESubType;
 import gameStatesDefault.GameState;
-import models.CardModel;
+import models.ModelCard;
 import utils.Flow;
 
 public class ObtainDoorUsingKey extends GameState {
@@ -23,8 +23,8 @@ public class ObtainDoorUsingKey extends GameState {
 	@Override
 	public void handleCardIconPlayPressed(Card cardPressed) {
 
-		CardModel.INSTANCE.releaseIconsFromList(getListsManager().draw);
-		CardModel.INSTANCE.transferCardFromDrawToDoorsShuffleDeck();
+		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
+		ModelCard.INSTANCE.transferCardFromDrawToDoorsShuffleDeck();
 
 		CardDoor cardDoor = (CardDoor) cardPressed;
 
@@ -43,7 +43,7 @@ public class ObtainDoorUsingKey extends GameState {
 			if (!cardLabyrinthChamber.getEColor().equals(cardDoor.getEColor()))
 				continue;
 
-			CardModel.INSTANCE.transferCardFromHandToDiscardPileAnimateAsynchronous(card);
+			ModelCard.INSTANCE.transferCardFromHandToDiscardPileAnimateAsynchronous(card);
 			break;
 
 		}
@@ -55,8 +55,8 @@ public class ObtainDoorUsingKey extends GameState {
 	@Override
 	public void handleCardIconDiscardPressed(Card card) {
 
-		CardModel.INSTANCE.releaseIconsFromList(getListsManager().draw);
-		CardModel.INSTANCE.transferCardFromDrawToLimboAnimateAsynchronous();
+		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
+		ModelCard.INSTANCE.transferCardFromDrawToLimboAnimateAsynchronous();
 		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}

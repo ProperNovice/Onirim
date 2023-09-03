@@ -4,7 +4,7 @@ import cards.Card;
 import cards.CardDoor;
 import gameStatesDefault.EndGameLost;
 import gameStatesDefault.GameState;
-import models.CardModel;
+import models.ModelCard;
 import utils.ArrayList;
 import utils.Flow;
 
@@ -20,7 +20,7 @@ public class TriggerProphecy extends GameState {
 
 		else {
 
-			CardModel.INSTANCE.transferCardFromDeckToDrawAnimateSynchronousLock(cardsToDraw);
+			ModelCard.INSTANCE.transferCardFromDeckToDrawAnimateSynchronousLock(cardsToDraw);
 			setUpDiscard();
 
 		}
@@ -30,8 +30,8 @@ public class TriggerProphecy extends GameState {
 	@Override
 	public void handleCardIconDiscardPressed(Card card) {
 
-		CardModel.INSTANCE.releaseIconsFromList(getListsManager().draw);
-		CardModel.INSTANCE.transferCardFromDrawToDiscardPileAnimateSynchronousLock(card);
+		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
+		ModelCard.INSTANCE.transferCardFromDrawToDiscardPileAnimateSynchronousLock(card);
 
 		setUpPutCardOnTopOfTheDeck();
 
@@ -40,8 +40,8 @@ public class TriggerProphecy extends GameState {
 	@Override
 	public void handleCardIconPlayPressed(Card card) {
 
-		CardModel.INSTANCE.releaseIconsFromList(getListsManager().draw);
-		CardModel.INSTANCE.transferCardFromDrawToDeckAnimateSynchronous(card);
+		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
+		ModelCard.INSTANCE.transferCardFromDrawToDeckAnimateSynchronous(card);
 
 		setUpPutCardOnTopOfTheDeck();
 
