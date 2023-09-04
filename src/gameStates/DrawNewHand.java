@@ -4,6 +4,7 @@ import cards.Card;
 import cards.CardLabyrinthChamber;
 import gameStatesDefault.GameState;
 import models.ModelCard;
+import models.ModelStatistics;
 import utils.Animation;
 import utils.Flow;
 
@@ -13,6 +14,8 @@ public class DrawNewHand extends GameState {
 	public void execute() {
 
 		while (!getListsManager().hand.getArrayList().isMaxCapacity()) {
+
+			ModelStatistics.INSTANCE.update();
 
 			Card card = ModelCard.INSTANCE.transferOneCardFromDeckToDrawAnimateSynchronousLock();
 

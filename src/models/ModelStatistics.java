@@ -1,10 +1,17 @@
 package models;
 
+import cards.Card;
+import cards.CardDoor;
+import cards.CardLabyrinthChamber;
 import enums.EColor;
 import enums.ESubType;
 import managers.Credentials;
+import managers.ListsManager;
+import utils.ArrayList;
 import utils.HashMap;
+import utils.Numeric;
 import utils.TextIndicator;
+import utils.Vector2;
 
 public enum ModelStatistics {
 
@@ -12,10 +19,15 @@ public enum ModelStatistics {
 
 	private HashMap<EColor, TextIndicator> eColors = new HashMap<>();
 	private HashMap<ESubType, TextIndicator> eSubTypes = new HashMap<>();
+	private HashMap<EColor, HashMap<ESubType, TextIndicatorNumeric>> valuesCardsLabyrinthChamber = new HashMap<>();
+	private TextIndicator doors = new TextIndicator("doors");
+	private HashMap<EColor, TextIndicatorNumeric> valuesDoors = new HashMap<>();
+	private ArrayList<TextIndicatorNumeric> listTextIndicatorsNumeric = new ArrayList<>();
 
 	private ModelStatistics() {
 
 		double x, y, length = 0;
+		int gap = 5;
 
 		// colors
 
@@ -30,25 +42,136 @@ public enum ModelStatistics {
 		y = Credentials.INSTANCE.gapBetweenBorders;
 		y += Credentials.INSTANCE.dCard.y;
 		y += Credentials.INSTANCE.dGapBetweenComponents.y;
+		y += Credentials.INSTANCE.textHeight;
 		y += Credentials.INSTANCE.textHeight / 2;
 
 		for (EColor eColor : EColor.values()) {
 
-			System.out.println(x + " " + y);
-			
 			this.eColors.getValue(eColor).relocateCenter(x, y);
 			y += Credentials.INSTANCE.textHeight;
 
 		}
-		
+
 		// sub types
 
-//		for (ESubType eSubType : ESubType.values())
-//			this.eSubTypes.put(eSubType, new TextIndicator(eSubType.toString().toLowerCase()));
+		x = this.eColors.getValue(EColor.BROWN).getCoordinatesTopLeftX();
+		x += this.eColors.getValue(EColor.BROWN).getWidth();
+		x += gap * Credentials.INSTANCE.dGapBetweenComponents.x;
+		y = this.eColors.getValue(EColor.RED).getCoordinatesTopLeftY();
+		y -= Credentials.INSTANCE.textHeight;
+
+		for (ESubType eSubType : ESubType.values()) {
+
+			TextIndicator textIndicator = new TextIndicator(eSubType.toString().toLowerCase());
+			this.eSubTypes.put(eSubType, textIndicator);
+			textIndicator.relocateTopLeft(x, y);
+
+			x += textIndicator.getWidth();
+			x += gap * Credentials.INSTANCE.dGapBetweenComponents.x;
+
+		}
+
+		// values labyrinth chamber
+
+		for (EColor eColor : EColor.values()) {
+
+			this.valuesCardsLabyrinthChamber.put(eColor, new HashMap<>());
+
+			for (ESubType eSubType : ESubType.values()) {
+
+				x = this.eSubTypes.getValue(eSubType).getCoordinatesCenterX();
+				y = this.eColors.getValue(eColor).getCoordinatesCenterY();
+
+				this.valuesCardsLabyrinthChamber.getValue(eColor).put(eSubType,
+						new TextIndicatorNumeric(x, y));
+
+			}
+
+		}
+
+		// doors
+
+		x = this.eSubTypes.getValue(ESubType.KEY).getCoordinatesTopLeftX();
+		x += this.eSubTypes.getValue(ESubType.KEY).getWidth();
+		x += gap * Credentials.INSTANCE.dGapBetweenComponents.x;
+		y = this.eSubTypes.getValue(ESubType.SUN).getCoordinatesTopLeftY();
+		this.doors.relocateTopLeft(x, y);
+
+		// doors values
+
+		x = this.doors.getCoordinatesCenterX();
+
+		for (EColor eColor : EColor.values()) {
+
+			y = this.eColors.getValue(eColor).getCoordinatesCenterY();
+			this.valuesDoors.put(eColor, new TextIndicatorNumeric(x, y));
+
+		}
 
 	}
 
 	public void update() {
+
+		for (TextIndicatorNumeric textIndicatorNumeric : this.listTextIndicatorsNumeric)
+			textIndicatorNumeric.reset();
+
+		ArrayList<Card> list = new ArrayList<>();
+		list.addAllLast(ListsManager.INSTANCE.deck.getArrayList());
+		list.addAllLast(ListsManager.INSTANCE.draw.getArrayList());
+		list.addAllLast(ListsManager.INSTANCE.limbo.getArrayList());
+
+		for (Card card : list) {
+
+			if (card instanceof CardLabyrinthChamber) {
+
+				CardLabyrinthChamber cardLabyrinthChamber = (CardLabyrinthChamber) card;
+				EColor eColor = cardLabyrinthChamber.getEColor();
+				ESubType eSubType = cardLabyrinthChamber.getESubType();
+
+				this.valuesCardsLabyrinthChamber.getValue(eColor).getValue(eSubType).addOne();
+
+			} else if (card instanceof CardDoor) {
+
+				CardDoor cardDoor = (CardDoor) card;
+				EColor eColor = cardDoor.getEColor();
+				this.valuesDoors.getValue(eColor).addOne();
+
+			}
+
+		}
+
+	}
+
+	private class TextIndicatorNumeric {
+
+		private TextIndicator textIndicator = new TextIndicator(0);
+		private Numeric numeric = new Numeric(0);
+		private Vector2 vector2 = null;
+
+		public TextIndicatorNumeric(double x, double y) {
+
+			listTextIndicatorsNumeric.addLast(this);
+			this.vector2 = new Vector2(x, y);
+			update();
+
+		}
+
+		public void addOne() {
+			this.numeric.add(1);
+			update();
+		}
+
+		public void reset() {
+			this.numeric.set(0);
+			update();
+		}
+
+		private void update() {
+
+			this.textIndicator.setText(this.numeric.get());
+			this.textIndicator.relocateCenter(this.vector2);
+
+		}
 
 	}
 

@@ -233,14 +233,11 @@ public enum ModelCard {
 
 	}
 
-	public void transferCardFromDoorsToDeckShuffleDeckRelocate(CardDoor cardDoor) {
+	public void transferCardFromDoorsToLimboRelocate(CardDoor cardDoor) {
 
 		ListsManager.INSTANCE.doors.removeDoor(cardDoor);
-		ListsManager.INSTANCE.deck.getArrayList().addFirst(cardDoor);
-		ListsManager.INSTANCE.deck.relocateImageViews();
-
-		cardDoor.getImageView().flipBack();
-		shuffleDeck();
+		ListsManager.INSTANCE.limbo.getArrayList().addFirst(cardDoor);
+		ListsManager.INSTANCE.limbo.relocateImageViews();
 
 	}
 

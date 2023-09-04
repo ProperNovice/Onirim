@@ -25,6 +25,10 @@ public class TextIndicator implements INode {
 
 	}
 
+	public TextIndicator(int value) {
+		this(Integer.toString(value));
+	}
+
 	public TextIndicator() {
 		this("");
 	}
@@ -143,6 +147,11 @@ public class TextIndicator implements INode {
 
 	public final void setText(String text) {
 		this.textVisibleTrue = text;
+		setVisible(true);
+	}
+
+	public final void setText(int value) {
+		this.textVisibleTrue = Integer.toString(value);
 		setVisible(true);
 	}
 
