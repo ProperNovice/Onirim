@@ -5,6 +5,7 @@ import cards.CardDoor;
 import gameStatesDefault.EndGameLost;
 import gameStatesDefault.GameState;
 import models.ModelCard;
+import models.ModelStatistics;
 import utils.ArrayList;
 import utils.Flow;
 
@@ -32,6 +33,7 @@ public class TriggerProphecy extends GameState {
 
 		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
 		ModelCard.INSTANCE.transferCardFromDrawToDiscardPileRelocate(card);
+		ModelStatistics.INSTANCE.update();
 
 		setUpPutCardOnTopOfTheDeck();
 

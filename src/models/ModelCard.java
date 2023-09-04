@@ -37,13 +37,18 @@ public enum ModelCard {
 			Card card = ListsManager.INSTANCE.deck.getArrayList().removeFirst();
 			card.getImageView().flipFront();
 			ListsManager.INSTANCE.draw.getArrayList().addLast(card);
-			ListsManager.INSTANCE.draw.animateSynchronous();
+
+			if (value == 1)
+				ListsManager.INSTANCE.draw.animateSynchronous();
+			else
+				ListsManager.INSTANCE.draw.relocateImageViews();
 
 		}
 
 		Lock.INSTANCE.lock();
 
-		Sleep.INSTANCE.sleep(100);
+		if (value == 1)
+			Sleep.INSTANCE.sleep(100);
 
 	}
 
@@ -187,6 +192,8 @@ public enum ModelCard {
 
 			if (eColorPlayed.equals(eColorTemp))
 				consecutiveCardsWithSameColour++;
+			else
+				break;
 
 		}
 

@@ -2,6 +2,7 @@ package models;
 
 import cards.Card;
 import cards.CardDoor;
+import cards.CardDreamNightmare;
 import cards.CardLabyrinthChamber;
 import enums.EColor;
 import enums.ESubType;
@@ -23,6 +24,8 @@ public enum ModelStatistics {
 	private TextIndicator doors = new TextIndicator("doors");
 	private HashMap<EColor, TextIndicatorNumeric> valuesDoors = new HashMap<>();
 	private ArrayList<TextIndicatorNumeric> listTextIndicatorsNumeric = new ArrayList<>();
+	private TextIndicator nightmaresTextIndicator = new TextIndicator("nightmares: 10");
+	private Vector2 nightmaresVector2 = new Vector2();
 
 	private ModelStatistics() {
 
@@ -108,12 +111,22 @@ public enum ModelStatistics {
 
 		}
 
+		// nightmares
+
+		this.nightmaresVector2.x = Credentials.INSTANCE.gapBetweenBorders;
+		this.nightmaresVector2.y = this.eColors.getValue(EColor.BROWN).getCoordinatesTopLeftY();
+		this.nightmaresVector2.addY(Credentials.INSTANCE.textHeight);
+
+		this.nightmaresTextIndicator.relocateTopLeft(this.nightmaresVector2);
+
 	}
 
 	public void update() {
 
 		for (TextIndicatorNumeric textIndicatorNumeric : this.listTextIndicatorsNumeric)
 			textIndicatorNumeric.reset();
+
+		int nightmares = 0;
 
 		ArrayList<Card> list = new ArrayList<>();
 		list.addAllLast(ListsManager.INSTANCE.deck.getArrayList());
@@ -136,9 +149,12 @@ public enum ModelStatistics {
 				EColor eColor = cardDoor.getEColor();
 				this.valuesDoors.getValue(eColor).addOne();
 
-			}
+			} else if (card instanceof CardDreamNightmare)
+				nightmares++;
 
 		}
+
+		this.nightmaresTextIndicator.setText("nightmares: " + nightmares);
 
 	}
 

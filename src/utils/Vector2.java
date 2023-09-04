@@ -11,6 +11,14 @@ public class Vector2 {
 
 	}
 
+	public Vector2() {
+		this(0, 0);
+	}
+
+	public Vector2(Vector2 vector2) {
+		this(vector2.x, vector2.y);
+	}
+
 	public void addVector2(Vector2 vector2) {
 		addX(vector2.x);
 		addY(vector2.y);
