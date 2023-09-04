@@ -27,8 +27,6 @@ public class ObtainDoorUsingKey extends GameState {
 	@Override
 	protected void executeTextOption(EText eText) {
 
-		concealText();
-
 		switch (eText) {
 
 		case OBTAIN_DOOR:
@@ -48,6 +46,8 @@ public class ObtainDoorUsingKey extends GameState {
 
 	@Override
 	public void handleCardIconPlayPressed(Card cardPressed) {
+
+		concealText();
 
 		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
 		ModelCard.INSTANCE.transferCardFromDrawToDoorsShuffleDeck();
@@ -80,6 +80,8 @@ public class ObtainDoorUsingKey extends GameState {
 
 	@Override
 	public void handleCardIconDiscardPressed(Card card) {
+
+		concealText();
 
 		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
 		ModelCard.INSTANCE.transferCardFromDrawToLimboRelocate();
