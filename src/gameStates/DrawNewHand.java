@@ -17,9 +17,9 @@ public class DrawNewHand extends GameState {
 			Card card = ModelCard.INSTANCE.transferOneCardFromDeckToDrawAnimateSynchronousLock();
 
 			if (card instanceof CardLabyrinthChamber)
-				ModelCard.INSTANCE.transferCardFromDrawToHandAnimateAsynchronous();
+				ModelCard.INSTANCE.transferCardFromDrawToHandRelocate();
 			else
-				ModelCard.INSTANCE.transferCardFromDrawToLimboAnimateAsynchronous();
+				ModelCard.INSTANCE.transferCardFromDrawToLimboRelocate();
 
 		}
 
@@ -27,7 +27,7 @@ public class DrawNewHand extends GameState {
 
 		if (!getListsManager().limbo.getArrayList().isEmpty()) {
 
-			ModelCard.INSTANCE.transferCardsFromLimboToDeckAnimateSynchronousLock();
+			ModelCard.INSTANCE.transferCardsFromLimboToDeckAnimateSynchronous();
 			ModelCard.INSTANCE.shuffleDeck();
 
 		}

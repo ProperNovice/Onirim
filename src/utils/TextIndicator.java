@@ -80,6 +80,11 @@ public class TextIndicator implements INode {
 
 	@Override
 	public void relocateCenter(double x, double y) {
+
+		x -= getWidth() / 2;
+		y -= getHeight() / 2;
+		relocateTopLeft(x, y);
+
 	}
 
 	@Override

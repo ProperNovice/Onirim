@@ -28,7 +28,7 @@ public class ResolveCardNightmarePlaceDoorInLimbo extends GameState {
 		for (CardDoor cardDoor : getListsManager().doors.getDoors())
 			cardDoor.releaseIconPlay();
 
-		ModelCard.INSTANCE.transferCardFromDoorsToDeckShuffleDeckAnimateSynchronousLock((CardDoor) card);
+		ModelCard.INSTANCE.transferCardFromDoorsToDeckShuffleDeckRelocate((CardDoor) card);
 		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}

@@ -8,7 +8,7 @@ import models.ModelCard;
 import utils.ArrayList;
 import utils.Flow;
 
-public class ResolveCardNightmareDiscardAKeyFromHand extends GameState {
+public class ResolveCardNightmareDiscardKeyFromHand extends GameState {
 
 	@Override
 	public void execute() {
@@ -36,7 +36,7 @@ public class ResolveCardNightmareDiscardAKeyFromHand extends GameState {
 	public void handleCardIconDiscardPressed(Card card) {
 
 		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().hand);
-		ModelCard.INSTANCE.transferCardFromHandToDiscardPileAnimateAsynchronous(card);
+		ModelCard.INSTANCE.transferCardFromHandToDiscardPileRelocate(card);
 		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}

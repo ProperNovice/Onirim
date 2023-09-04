@@ -59,10 +59,11 @@ public class ResolveCardNightmare extends GameState {
 	private void createHashMap() {
 
 		this.map.put(EText.DISCARD_A_KEY_FROM_YOUR_HAND,
-				ResolveCardNightmareDiscardAKeyFromHand.class);
+				ResolveCardNightmareDiscardKeyFromHand.class);
 		this.map.put(EText.PLACE_A_DOOR_IN_LIMBO, ResolveCardNightmarePlaceDoorInLimbo.class);
 		this.map.put(EText.REVEAL_THE_FIRST_FIVE_CARDS,
 				ResolveCardNightmareRevealFirstFiveCards.class);
+		this.map.put(EText.DISCARD_YOUR_HAND, ResolveNightmareDiscardYourHand.class);
 
 	}
 

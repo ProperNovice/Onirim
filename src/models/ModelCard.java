@@ -5,10 +5,15 @@ import cards.CardDoor;
 import cards.CardLabyrinthChamber;
 import enums.EColor;
 import enums.ESubType;
+import managers.Credentials;
 import managers.ListsManager;
+import utils.Animation;
 import utils.ArrayList;
+import utils.Enums.AnimationSynchEnum;
 import utils.ListImageViewAbles;
 import utils.Lock;
+import utils.Sleep;
+import utils.Vector2;
 
 public enum ModelCard {
 
@@ -20,12 +25,12 @@ public enum ModelCard {
 
 	public Card transferOneCardFromDeckToDrawAnimateSynchronousLock() {
 
-		transferCardFromDeckToDrawAnimateSynchronousLock(1);
+		transferCardsFromDeckToDrawAnimateSynchronousLock(1);
 		return ListsManager.INSTANCE.draw.getArrayList().getLast();
 
 	}
 
-	public void transferCardFromDeckToDrawAnimateSynchronousLock(int value) {
+	public void transferCardsFromDeckToDrawAnimateSynchronousLock(int value) {
 
 		for (int counter = 1; counter <= value; counter++) {
 
@@ -38,30 +43,45 @@ public enum ModelCard {
 
 		Lock.INSTANCE.lock();
 
+		Sleep.INSTANCE.sleep(100);
+
 	}
 
-	public void transferCardFromDrawToHandAnimateAsynchronous() {
+	public void transferCardFromDrawToHandRelocate() {
 
 		Card card = ListsManager.INSTANCE.draw.getArrayList().removeFirst();
 		ListsManager.INSTANCE.hand.getArrayList().addLast(card);
-		ListsManager.INSTANCE.hand.animateAsynchronous();
+		ListsManager.INSTANCE.hand.relocateImageViews();
 
 	}
 
-	public void transferCardFromDrawToLimboAnimateAsynchronous() {
+	public void transferCardFromDrawToLimboRelocate() {
 
 		Card card = ListsManager.INSTANCE.draw.getArrayList().removeFirst();
 		ListsManager.INSTANCE.limbo.getArrayList().addFirst(card);
-		ListsManager.INSTANCE.limbo.animateAsynchronous();
+		ListsManager.INSTANCE.limbo.relocateImageViews();
 
 	}
 
-	public void transferCardsFromLimboToDeckAnimateSynchronousLock() {
+	public void transferCardsFromLimboToDeckAnimateSynchronous() {
 
 		ArrayList<Card> limbo = ListsManager.INSTANCE.limbo.getArrayList().clear();
 
+		limbo.reverse();
+
+		for (Card card : limbo) {
+
+			Vector2 vector2 = card.getImageView().getCoordinatesCenter();
+			vector2.substractX(Credentials.INSTANCE.dCard.x);
+			vector2.substractX(Credentials.INSTANCE.dGapBetweenComponents.x);
+			Animation.INSTANCE.animateCenter(card, vector2, AnimationSynchEnum.SYNCHRONOUS);
+
+		}
+
+		Lock.INSTANCE.lock();
+
 		ListsManager.INSTANCE.deck.getArrayList().addAllFirst(limbo);
-		ListsManager.INSTANCE.deck.animateSynchronousLock();
+		ListsManager.INSTANCE.deck.relocateImageViews();
 
 		for (Card card : ListsManager.INSTANCE.deck)
 			if (!card.getImageView().isFlippedBack())
@@ -76,23 +96,23 @@ public enum ModelCard {
 
 	}
 
-	public void transferCardFromHandToDiscardPileAnimateAsynchronous(Card card) {
+	public void transferCardFromHandToDiscardPileRelocate(Card card) {
 
 		ListsManager.INSTANCE.hand.getArrayList().remove(card);
 		ListsManager.INSTANCE.discardPile.getArrayList().addFirst(card);
 
-		ListsManager.INSTANCE.hand.animateAsynchronous();
+		ListsManager.INSTANCE.hand.relocateImageViews();
 		ListsManager.INSTANCE.discardPile.relocateImageViews();
 
 	}
 
-	public void transferCardFromDrawToDiscardPileAnimateSynchronousLock(Card card) {
+	public void transferCardFromDrawToDiscardPileRelocate(Card card) {
 
 		ListsManager.INSTANCE.draw.getArrayList().remove(card);
 		ListsManager.INSTANCE.discardPile.getArrayList().addFirst(card);
 
 		ListsManager.INSTANCE.discardPile.relocateImageViews();
-		ListsManager.INSTANCE.draw.animateSynchronousLock();
+		ListsManager.INSTANCE.draw.relocateImageViews();
 
 	}
 
@@ -105,15 +125,14 @@ public enum ModelCard {
 
 	}
 
-	public void transferCardFromDrawToDeckAnimateSynchronous(Card card) {
+	public void transferCardFromDrawToDeckRelocate(Card card) {
 
 		card.getImageView().flip();
 
 		ListsManager.INSTANCE.draw.getArrayList().remove(card);
 		ListsManager.INSTANCE.deck.getArrayList().addFirst(card);
 		ListsManager.INSTANCE.deck.relocateImageViews();
-
-		ListsManager.INSTANCE.draw.animateSynchronousLock();
+		ListsManager.INSTANCE.draw.relocateImageViews();
 
 	}
 
@@ -133,7 +152,7 @@ public enum ModelCard {
 		card.getImageView().flip();
 
 		ListsManager.INSTANCE.deck.getArrayList().remove(card);
-		ListsManager.INSTANCE.doors.addCardDoorAnimateAsynchronous((CardDoor) card);
+		ListsManager.INSTANCE.doors.addCardDoor((CardDoor) card);
 
 		shuffleDeck();
 
@@ -142,7 +161,7 @@ public enum ModelCard {
 	public void transferCardFromDrawToDoorsShuffleDeck() {
 
 		Card card = ListsManager.INSTANCE.draw.getArrayList().removeFirst();
-		ListsManager.INSTANCE.doors.addCardDoorAnimateAsynchronous((CardDoor) card);
+		ListsManager.INSTANCE.doors.addCardDoor((CardDoor) card);
 
 	}
 
@@ -151,8 +170,8 @@ public enum ModelCard {
 		ListsManager.INSTANCE.hand.getArrayList().remove(card);
 		ListsManager.INSTANCE.board.getArrayList().addFirst(card);
 
-		ListsManager.INSTANCE.hand.animateAsynchronous();
-		ListsManager.INSTANCE.board.animateAsynchronous();
+		ListsManager.INSTANCE.hand.relocateImageViews();
+		ListsManager.INSTANCE.board.relocateImageViews();
 
 		// check for door
 
@@ -214,11 +233,11 @@ public enum ModelCard {
 
 	}
 
-	public void transferCardFromDoorsToDeckShuffleDeckAnimateSynchronousLock(CardDoor cardDoor) {
+	public void transferCardFromDoorsToDeckShuffleDeckRelocate(CardDoor cardDoor) {
 
-		ListsManager.INSTANCE.doors.removeDoorAnimateAsynchronous(cardDoor);
+		ListsManager.INSTANCE.doors.removeDoor(cardDoor);
 		ListsManager.INSTANCE.deck.getArrayList().addFirst(cardDoor);
-		ListsManager.INSTANCE.deck.animateSynchronousLock();
+		ListsManager.INSTANCE.deck.relocateImageViews();
 
 		cardDoor.getImageView().flipBack();
 		shuffleDeck();

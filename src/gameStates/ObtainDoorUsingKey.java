@@ -43,7 +43,7 @@ public class ObtainDoorUsingKey extends GameState {
 			if (!cardLabyrinthChamber.getEColor().equals(cardDoor.getEColor()))
 				continue;
 
-			ModelCard.INSTANCE.transferCardFromHandToDiscardPileAnimateAsynchronous(card);
+			ModelCard.INSTANCE.transferCardFromHandToDiscardPileRelocate(card);
 			break;
 
 		}
@@ -56,7 +56,7 @@ public class ObtainDoorUsingKey extends GameState {
 	public void handleCardIconDiscardPressed(Card card) {
 
 		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
-		ModelCard.INSTANCE.transferCardFromDrawToLimboAnimateAsynchronous();
+		ModelCard.INSTANCE.transferCardFromDrawToLimboRelocate();
 		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}

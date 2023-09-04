@@ -5,8 +5,10 @@ import cards.CardDoor;
 import cards.CardDreamNightmare;
 import cards.CardLabyrinth;
 import cards.CardLabyrinthChamber;
+import gameStatesDefault.EndGameLost;
 import gameStatesDefault.GameState;
 import models.ModelCard;
+import utils.Animation;
 import utils.Flow;
 
 public class DrawCard extends GameState {
@@ -14,21 +16,35 @@ public class DrawCard extends GameState {
 	@Override
 	public void execute() {
 
-		Card card = ModelCard.INSTANCE.transferOneCardFromDeckToDrawAnimateSynchronousLock();
-		Class<? extends Card> cardClass = card.getClass();
+		if (getListsManager().deck.getArrayList().isEmpty())
+			Flow.INSTANCE.executeGameState(EndGameLost.class);
 
-		if (CardLabyrinth.class.isAssignableFrom(cardClass))
-			handleCardLabyrinthDrawn();
-		else if (CardDoor.class.isAssignableFrom(cardClass))
-			handleCardDoorDrawn((CardDoor) card);
-		else if (CardDreamNightmare.class.isAssignableFrom(cardClass))
-			handleCardNightmareDrawn();
+		else if (getListsManager().hand.getArrayList().isMaxCapacity()) {
+
+			Animation.INSTANCE.moveAsynchronousToSynchronous();
+			ModelCard.INSTANCE.transferCardsFromLimboToDeckAnimateSynchronous();
+			ModelCard.INSTANCE.shuffleDeck();
+			Flow.INSTANCE.executeGameState(PlayCard.class);
+
+		} else {
+
+			Card card = ModelCard.INSTANCE.transferOneCardFromDeckToDrawAnimateSynchronousLock();
+			Class<? extends Card> cardClass = card.getClass();
+
+			if (CardLabyrinth.class.isAssignableFrom(cardClass))
+				handleCardLabyrinthDrawn();
+			else if (CardDoor.class.isAssignableFrom(cardClass))
+				handleCardDoorDrawn((CardDoor) card);
+			else if (CardDreamNightmare.class.isAssignableFrom(cardClass))
+				handleCardNightmareDrawn();
+
+		}
 
 	}
 
 	private void handleCardLabyrinthDrawn() {
 
-		ModelCard.INSTANCE.transferCardFromDrawToHandAnimateAsynchronous();
+		ModelCard.INSTANCE.transferCardFromDrawToHandRelocate();
 		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}
@@ -45,7 +61,7 @@ public class DrawCard extends GameState {
 
 		}
 
-		ModelCard.INSTANCE.transferCardFromDrawToLimboAnimateAsynchronous();
+		ModelCard.INSTANCE.transferCardFromDrawToLimboRelocate();
 		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}

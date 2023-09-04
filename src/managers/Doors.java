@@ -1,9 +1,7 @@
 package managers;
 
 import cards.CardDoor;
-import utils.Animation;
 import utils.ArrayList;
-import utils.Enums.AnimationSynchEnum;
 import utils.HashMap;
 import utils.Vector2;
 
@@ -21,13 +19,13 @@ public enum Doors {
 
 	}
 
-	public void removeDoorAnimateAsynchronous(CardDoor cardDoor) {
+	public void removeDoor(CardDoor cardDoor) {
 
 		for (DoorPosition doorPosition : this.doorPositions)
 			if (doorPosition.containsCardDoor(cardDoor))
 				doorPosition.removeCardDoor();
 
-		animateDoorPositions();
+		relocateDoorPositions();
 
 	}
 
@@ -43,16 +41,15 @@ public enum Doors {
 
 	}
 
-	public void addCardDoorAnimateAsynchronous(CardDoor cardDoor) {
+	public void addCardDoor(CardDoor cardDoor) {
 
 		this.doorPositions.addLast(new DoorPosition());
 		this.doorPositions.getLast().addCardDoor(cardDoor);
-		animateDoorPositions();
-//		Lock.INSTANCE.lock();
+		relocateDoorPositions();
 
 	}
 
-	private void animateDoorPositions() {
+	private void relocateDoorPositions() {
 
 		for (DoorPosition doorPosition : this.doorPositions.clone())
 			if (doorPosition.isEmpty()) {
@@ -62,8 +59,8 @@ public enum Doors {
 
 		for (DoorPosition doorPosition : this.doorPositions)
 			if (!doorPosition.isEmpty())
-				doorPosition.animateAsynchronous(
-						this.vectors2.getValue(this.doorPositions.indexOf(doorPosition)));
+				doorPosition
+						.relocate(this.vectors2.getValue(this.doorPositions.indexOf(doorPosition)));
 
 	}
 
@@ -106,9 +103,8 @@ public enum Doors {
 			this.cardDoor = null;
 		}
 
-		public void animateAsynchronous(Vector2 vector2) {
-			Animation.INSTANCE.animateTopLeft(this.cardDoor, vector2,
-					AnimationSynchEnum.ASYNCHRONOUS);
+		public void relocate(Vector2 vector2) {
+			this.cardDoor.getImageView().relocateTopLeft(vector2);
 		}
 
 		public boolean containsCardDoor() {

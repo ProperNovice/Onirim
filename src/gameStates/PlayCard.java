@@ -23,13 +23,15 @@ public class PlayCard extends GameState {
 		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().hand);
 		ModelCard.INSTANCE.transferCardFromHandToBoardHandleDoorDiscovered(card);
 
+		Flow.INSTANCE.executeGameState(DrawCard.class);
+
 	}
 
 	@Override
 	public void handleCardIconDiscardPressed(Card card) {
 
 		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().hand);
-		ModelCard.INSTANCE.transferCardFromHandToDiscardPileAnimateAsynchronous(card);
+		ModelCard.INSTANCE.transferCardFromHandToDiscardPileRelocate(card);
 
 		CardLabyrinthChamber cardLabyrinthChamber = (CardLabyrinthChamber) card;
 		ESubType eSubType = cardLabyrinthChamber.getESubType();

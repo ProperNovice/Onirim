@@ -20,7 +20,7 @@ public class TriggerProphecy extends GameState {
 
 		else {
 
-			ModelCard.INSTANCE.transferCardFromDeckToDrawAnimateSynchronousLock(cardsToDraw);
+			ModelCard.INSTANCE.transferCardsFromDeckToDrawAnimateSynchronousLock(cardsToDraw);
 			setUpDiscard();
 
 		}
@@ -31,7 +31,7 @@ public class TriggerProphecy extends GameState {
 	public void handleCardIconDiscardPressed(Card card) {
 
 		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
-		ModelCard.INSTANCE.transferCardFromDrawToDiscardPileAnimateSynchronousLock(card);
+		ModelCard.INSTANCE.transferCardFromDrawToDiscardPileRelocate(card);
 
 		setUpPutCardOnTopOfTheDeck();
 
@@ -41,7 +41,7 @@ public class TriggerProphecy extends GameState {
 	public void handleCardIconPlayPressed(Card card) {
 
 		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
-		ModelCard.INSTANCE.transferCardFromDrawToDeckAnimateSynchronous(card);
+		ModelCard.INSTANCE.transferCardFromDrawToDeckRelocate(card);
 
 		setUpPutCardOnTopOfTheDeck();
 
