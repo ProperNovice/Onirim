@@ -51,6 +51,8 @@ public enum InstantiateComponents {
 		for (int counter = 1; counter <= 10; counter++)
 			deck.addLast(new CardDreamNightmare());
 
+		ListsManager.INSTANCE.deck.getArrayList().saveOriginal();
+
 		deck.shuffle();
 		ListsManager.INSTANCE.deck.relocateImageViews();
 

@@ -65,7 +65,7 @@ public class JUnit extends GameState {
 //		addDoor(EColor.GREEN);
 //		addDoor(EColor.GREEN);
 
-		Flow.INSTANCE.executeGameState(DrawNewHand.class);
+		Flow.INSTANCE.executeGameState(StartGame.class);
 //		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}

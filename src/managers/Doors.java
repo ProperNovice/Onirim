@@ -19,6 +19,14 @@ public enum Doors {
 
 	}
 
+	public void clearDoors() {
+
+		for (DoorPosition doorPosition : this.doorPositions)
+			if (doorPosition.containsCardDoor())
+				doorPosition.removeCardDoor();
+
+	}
+
 	public void removeDoor(CardDoor cardDoor) {
 
 		for (DoorPosition doorPosition : this.doorPositions)

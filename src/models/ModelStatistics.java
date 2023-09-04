@@ -24,8 +24,9 @@ public enum ModelStatistics {
 	private TextIndicator doors = new TextIndicator("doors");
 	private HashMap<EColor, TextIndicatorNumeric> valuesDoors = new HashMap<>();
 	private ArrayList<TextIndicatorNumeric> listTextIndicatorsNumeric = new ArrayList<>();
-	private TextIndicator nightmaresTextIndicator = new TextIndicator("nightmares: 10");
-	private Vector2 nightmaresVector2 = new Vector2();
+	private TextIndicator nightmaresTextIndicator = new TextIndicator(),
+			answersTextIndicator = new TextIndicator();
+	private Vector2 nightmaresVector2 = new Vector2(), answersVector2 = new Vector2();
 
 	private ModelStatistics() {
 
@@ -116,8 +117,13 @@ public enum ModelStatistics {
 		this.nightmaresVector2.x = Credentials.INSTANCE.gapBetweenBorders;
 		this.nightmaresVector2.y = this.eColors.getValue(EColor.BROWN).getCoordinatesTopLeftY();
 		this.nightmaresVector2.addY(Credentials.INSTANCE.textHeight);
-
 		this.nightmaresTextIndicator.relocateTopLeft(this.nightmaresVector2);
+
+		// answers
+
+		this.answersVector2 = this.nightmaresVector2.clone();
+		this.answersVector2.addY(Credentials.INSTANCE.textHeight);
+		this.answersTextIndicator.relocateTopLeft(this.answersVector2);
 
 	}
 
@@ -126,7 +132,7 @@ public enum ModelStatistics {
 		for (TextIndicatorNumeric textIndicatorNumeric : this.listTextIndicatorsNumeric)
 			textIndicatorNumeric.reset();
 
-		int nightmares = 0;
+		int nightmares = 0, answers = 0;
 
 		ArrayList<Card> list = new ArrayList<>();
 		list.addAllLast(ListsManager.INSTANCE.deck.getArrayList());
@@ -141,6 +147,9 @@ public enum ModelStatistics {
 				EColor eColor = cardLabyrinthChamber.getEColor();
 				ESubType eSubType = cardLabyrinthChamber.getESubType();
 
+				if (eSubType.equals(ESubType.KEY))
+					answers++;
+
 				this.valuesCardsLabyrinthChamber.getValue(eColor).getValue(eSubType).addOne();
 
 			} else if (card instanceof CardDoor) {
@@ -148,13 +157,21 @@ public enum ModelStatistics {
 				CardDoor cardDoor = (CardDoor) card;
 				EColor eColor = cardDoor.getEColor();
 				this.valuesDoors.getValue(eColor).addOne();
+				answers--;
 
-			} else if (card instanceof CardDreamNightmare)
+			} else if (card instanceof CardDreamNightmare) {
+
 				nightmares++;
+				answers--;
+
+			}
 
 		}
 
+		answers += ModelCard.INSTANCE.getKeysInHand().size();
+
 		this.nightmaresTextIndicator.setText("nightmares: " + nightmares);
+		this.answersTextIndicator.setText("answers: " + answers);
 
 	}
 

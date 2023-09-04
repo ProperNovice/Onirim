@@ -16,17 +16,17 @@ public class DrawCard extends GameState {
 	@Override
 	public void execute() {
 
-		if (getListsManager().deck.getArrayList().isEmpty())
-			Flow.INSTANCE.executeGameState(EndGameLost.class);
-
-		else if (getListsManager().hand.getArrayList().isMaxCapacity()) {
+		if (getListsManager().hand.getArrayList().isMaxCapacity()) {
 
 			Animation.INSTANCE.moveAsynchronousToSynchronous();
 			ModelCard.INSTANCE.transferCardsFromLimboToDeckAnimateSynchronous();
 			ModelCard.INSTANCE.shuffleDeck();
 			Flow.INSTANCE.executeGameState(PlayCard.class);
 
-		} else {
+		} else if (getListsManager().deck.getArrayList().isEmpty())
+			Flow.INSTANCE.executeGameState(EndGameLost.class);
+
+		else {
 
 			Card card = ModelCard.INSTANCE.transferOneCardFromDeckToDrawAnimateSynchronousLock();
 			Class<? extends Card> cardClass = card.getClass();
