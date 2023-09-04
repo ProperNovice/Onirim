@@ -4,6 +4,7 @@ import cards.Card;
 import cards.CardDoor;
 import cards.CardLabyrinthChamber;
 import enums.ESubType;
+import enums.EText;
 import gameStatesDefault.GameState;
 import models.ModelCard;
 import utils.Flow;
@@ -17,6 +18,31 @@ public class ObtainDoorUsingKey extends GameState {
 
 		card.setIconDiscard();
 		card.setIconPlay();
+
+		EText.OBTAIN_DOOR.show();
+		EText.PUT_IT_IN_LIMBO.show();
+
+	}
+
+	@Override
+	protected void executeTextOption(EText eText) {
+
+		concealText();
+
+		switch (eText) {
+
+		case OBTAIN_DOOR:
+			handleCardIconPlayPressed(getListsManager().draw.getArrayList().getFirst());
+			break;
+
+		case PUT_IT_IN_LIMBO:
+			handleCardIconDiscardPressed(getListsManager().draw.getArrayList().getFirst());
+			break;
+
+		default:
+			break;
+
+		}
 
 	}
 

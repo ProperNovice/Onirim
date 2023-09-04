@@ -16,6 +16,8 @@ public enum EText {
 	PLACE_A_DOOR_IN_LIMBO("Place a door in limbo", TextTypeEnum.OPTION),
 	REVEAL_THE_FIRST_FIVE_CARDS("Reveal the first five cards", TextTypeEnum.OPTION),
 	DISCARD_YOUR_HAND("Discard your hand", TextTypeEnum.OPTION),
+	OBTAIN_DOOR("Obtain door", TextTypeEnum.OPTION),
+	PUT_IT_IN_LIMBO("Put it in limbo", TextTypeEnum.OPTION),
 
 	;
 
