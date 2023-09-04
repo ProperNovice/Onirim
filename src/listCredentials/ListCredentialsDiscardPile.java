@@ -13,6 +13,7 @@ public class ListCredentialsDiscardPile extends ListCredentials {
 		super.rearrangeTypeEnum = RearrangeTypeEnum.STATIC;
 		super.relocateTypeEnum = RelocateTypeEnum.CENTER;
 		super.layerZListEnum = LayerZListEnum.TO_FRONT_FIRST_IMAGEVIEW;
+		super.showListSize = true;
 
 	}
 

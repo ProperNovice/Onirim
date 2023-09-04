@@ -21,7 +21,7 @@ public enum ModelStatistics {
 	private HashMap<EColor, TextIndicator> eColors = new HashMap<>();
 	private HashMap<ESubType, TextIndicator> eSubTypes = new HashMap<>();
 	private HashMap<EColor, HashMap<ESubType, TextIndicatorNumeric>> valuesCardsLabyrinthChamber = new HashMap<>();
-	private TextIndicator doors = new TextIndicator("doors");
+	private TextIndicator doors = new TextIndicator("door");
 	private HashMap<EColor, TextIndicatorNumeric> valuesDoors = new HashMap<>();
 	private ArrayList<TextIndicatorNumeric> listTextIndicatorsNumeric = new ArrayList<>();
 	private TextIndicator nightmaresTextIndicator = new TextIndicator(),
