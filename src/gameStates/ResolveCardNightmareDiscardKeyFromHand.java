@@ -36,7 +36,10 @@ public class ResolveCardNightmareDiscardKeyFromHand extends GameState {
 	public void handleCardIconDiscardPressed(Card card) {
 
 		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().hand);
+
+		ModelCard.INSTANCE.transferCardFromDrawToDiscardPileRelocate();
 		ModelCard.INSTANCE.transferCardFromHandToDiscardPileRelocate(card);
+
 		Flow.INSTANCE.executeGameState(DrawCard.class);
 
 	}

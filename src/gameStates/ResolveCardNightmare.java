@@ -30,7 +30,9 @@ public class ResolveCardNightmare extends GameState {
 	@Override
 	protected void executeTextOption(EText eText) {
 
-		ModelCard.INSTANCE.transferCardFromDrawToDiscardPileRelocate();
+		if (!eText.equals(EText.DISCARD_A_KEY_FROM_YOUR_HAND))
+			ModelCard.INSTANCE.transferCardFromDrawToDiscardPileRelocate();
+
 		Flow.INSTANCE.executeGameState(this.map.getValue(eText));
 
 	}
