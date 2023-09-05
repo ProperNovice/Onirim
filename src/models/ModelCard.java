@@ -2,6 +2,7 @@ package models;
 
 import cards.Card;
 import cards.CardDoor;
+import cards.CardDreamNightmare;
 import cards.CardLabyrinthChamber;
 import enums.EColor;
 import enums.ESubType;
@@ -245,6 +246,29 @@ public enum ModelCard {
 		ListsManager.INSTANCE.doors.removeDoor(cardDoor);
 		ListsManager.INSTANCE.limbo.getArrayList().addFirst(cardDoor);
 		ListsManager.INSTANCE.limbo.relocateImageViews();
+
+	}
+
+	public boolean gameIsWon() {
+
+		boolean gameWon = false;
+
+		if (ListsManager.INSTANCE.doors.getDoors().size() == 8) {
+
+			ArrayList<Card> list = new ArrayList<>();
+			list.addAllLast(ListsManager.INSTANCE.deck.getArrayList());
+			list.addAllLast(ListsManager.INSTANCE.draw.getArrayList());
+			list.addAllLast(ListsManager.INSTANCE.limbo.getArrayList());
+
+			gameWon = true;
+
+			for (Card card : list)
+				if (card instanceof CardDreamNightmare)
+					gameWon = false;
+
+		}
+
+		return gameWon;
 
 	}
 

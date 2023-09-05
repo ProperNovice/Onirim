@@ -10,7 +10,6 @@ import gameStatesDefault.EndGameWon;
 import gameStatesDefault.GameState;
 import models.ModelCard;
 import utils.Animation;
-import utils.ArrayList;
 import utils.Flow;
 
 public class DrawCard extends GameState {
@@ -18,24 +17,7 @@ public class DrawCard extends GameState {
 	@Override
 	public void execute() {
 
-		boolean gameWon = false;
-
-		if (getListsManager().doors.getDoors().size() == 8) {
-
-			ArrayList<Card> list = new ArrayList<>();
-			list.addAllLast(getListsManager().deck.getArrayList());
-			list.addAllLast(getListsManager().draw.getArrayList());
-			list.addAllLast(getListsManager().limbo.getArrayList());
-
-			gameWon = true;
-
-			for (Card card : list)
-				if (card instanceof CardDreamNightmare)
-					gameWon = false;
-
-		}
-
-		if (gameWon)
+		if (ModelCard.INSTANCE.gameIsWon())
 			Flow.INSTANCE.executeGameState(EndGameWon.class);
 
 		else if (getListsManager().hand.getArrayList().isMaxCapacity()) {
