@@ -137,8 +137,9 @@ public enum ModelCard {
 
 		ListsManager.INSTANCE.draw.getArrayList().remove(card);
 		ListsManager.INSTANCE.deck.getArrayList().addFirst(card);
-		ListsManager.INSTANCE.deck.relocateImageViews();
+
 		ListsManager.INSTANCE.draw.relocateImageViews();
+		ListsManager.INSTANCE.deck.relocateImageViews();
 
 	}
 
