@@ -13,6 +13,7 @@ import utils.ArrayList;
 import utils.Enums.AnimationSynchEnum;
 import utils.ListImageViewAbles;
 import utils.Lock;
+import utils.Random;
 import utils.Sleep;
 import utils.Vector2;
 
@@ -99,6 +100,28 @@ public enum ModelCard {
 
 		ListsManager.INSTANCE.deck.getArrayList().shuffle();
 		ListsManager.INSTANCE.deck.layerZSort();
+
+		// animation
+
+		for (Card card : ListsManager.INSTANCE.deck) {
+
+			Vector2 vector2 = card.getImageView().getCoordinatesTopLeft().clone();
+			vector2.substractX(Credentials.INSTANCE.dCard.x);
+			vector2.substractY(Credentials.INSTANCE.dCard.y / 2);
+
+			double xMaxToAdd = 2 * Credentials.INSTANCE.dCard.x;
+			double yMaxToAdd = Credentials.INSTANCE.dCard.y;
+
+			vector2.addX(Random.INSTANCE.getRandomNumber(0, (int) xMaxToAdd));
+			vector2.addY(Random.INSTANCE.getRandomNumber(0, (int) yMaxToAdd));
+
+			Animation.INSTANCE.animateTopLeft(card, vector2, AnimationSynchEnum.SYNCHRONOUS);
+
+		}
+
+		Lock.INSTANCE.lock();
+		Sleep.INSTANCE.sleep(100);
+		ListsManager.INSTANCE.deck.animateSynchronousLock();
 
 	}
 
