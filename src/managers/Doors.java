@@ -1,8 +1,12 @@
 package managers;
 
 import cards.CardDoor;
+import models.ModelStatistics;
+import utils.Animation;
 import utils.ArrayList;
+import utils.Enums.AnimationSynchEnum;
 import utils.HashMap;
+import utils.Lock;
 import utils.Vector2;
 
 public enum Doors {
@@ -51,7 +55,15 @@ public enum Doors {
 
 	public void addCardDoor(CardDoor cardDoor) {
 
-		this.doorPositions.addLast(new DoorPosition());
+		ModelStatistics.INSTANCE.update();
+
+		Vector2 vector2 = cardDoor.getImageView().getCoordinatesCenter();
+		vector2.substractY(Credentials.INSTANCE.dCard);
+		vector2.substractY(Credentials.INSTANCE.dGapBetweenComponents);
+		Animation.INSTANCE.animateCenter(cardDoor, vector2, AnimationSynchEnum.SYNCHRONOUS);
+		Lock.INSTANCE.lock();
+
+//		this.doorPositions.addLast(new DoorPosition());
 		this.doorPositions.getLast().addCardDoor(cardDoor);
 		relocateDoorPositions();
 

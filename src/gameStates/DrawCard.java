@@ -23,8 +23,14 @@ public class DrawCard extends GameState {
 		else if (getListsManager().hand.getArrayList().isMaxCapacity()) {
 
 			Animation.INSTANCE.moveAsynchronousToSynchronous();
-			ModelCard.INSTANCE.transferCardsFromLimboToDeckAnimateSynchronous();
-			ModelCard.INSTANCE.shuffleDeck();
+
+			if (!getListsManager().limbo.getArrayList().isEmpty()) {
+
+				ModelCard.INSTANCE.transferCardsFromLimboToDeckAnimateSynchronous();
+				ModelCard.INSTANCE.shuffleDeck();
+
+			}
+
 			Flow.INSTANCE.executeGameState(PlayCard.class);
 
 		} else if (getListsManager().deck.getArrayList().isEmpty())
