@@ -49,9 +49,6 @@ public class ObtainDoorUsingKey extends GameState {
 
 		concealText();
 
-		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
-		ModelCard.INSTANCE.transferCardFromDrawToDoorsShuffleDeck();
-
 		CardDoor cardDoor = (CardDoor) cardPressed;
 
 		// remove key
@@ -73,6 +70,11 @@ public class ObtainDoorUsingKey extends GameState {
 			break;
 
 		}
+
+		// remove door
+
+		ModelCard.INSTANCE.releaseIconsFromList(getListsManager().draw);
+		ModelCard.INSTANCE.transferCardFromDrawToDoorsShuffleDeck();
 
 		Flow.INSTANCE.executeGameState(DrawCard.class);
 
