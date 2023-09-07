@@ -98,6 +98,9 @@ public enum ModelCard {
 
 	public void shuffleDeck() {
 
+		if (ListsManager.INSTANCE.deck.getArrayList().isEmpty())
+			return;
+
 		ListsManager.INSTANCE.deck.getArrayList().shuffle();
 		ListsManager.INSTANCE.deck.layerZSort();
 
@@ -105,17 +108,14 @@ public enum ModelCard {
 
 		for (Card card : ListsManager.INSTANCE.deck) {
 
-			Vector2 vector2 = card.getImageView().getCoordinatesTopLeft().clone();
-			vector2.substractX(Credentials.INSTANCE.dCard.x);
+			Vector2 vector2 = card.getImageView().getCoordinatesCenter().clone();
+			vector2.substractX(Credentials.INSTANCE.dCard.x / 2);
 			vector2.substractY(Credentials.INSTANCE.dCard.y / 2);
 
-			double xMaxToAdd = 2 * Credentials.INSTANCE.dCard.x;
-			double yMaxToAdd = Credentials.INSTANCE.dCard.y;
+			vector2.addX(Random.INSTANCE.getRandomNumber(0, (int) Credentials.INSTANCE.dCard.x));
+			vector2.addY(Random.INSTANCE.getRandomNumber(0, (int) Credentials.INSTANCE.dCard.y));
 
-			vector2.addX(Random.INSTANCE.getRandomNumber(0, (int) xMaxToAdd));
-			vector2.addY(Random.INSTANCE.getRandomNumber(0, (int) yMaxToAdd));
-
-			Animation.INSTANCE.animateTopLeft(card, vector2, AnimationSynchEnum.SYNCHRONOUS);
+			Animation.INSTANCE.animateCenter(card, vector2, AnimationSynchEnum.SYNCHRONOUS);
 
 		}
 
