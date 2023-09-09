@@ -9,17 +9,35 @@ public enum CursorFX {
 	INSTANCE;
 
 	private Scene scene = InstancesGui.INSTANCE.getScene();
+	private Cursor cursor = Cursor.DEFAULT;
 
 	private CursorFX() {
 
 	}
 
 	public void setWait() {
-		this.scene.setCursor(Cursor.WAIT);
+
+		if (this.cursor.equals(Cursor.WAIT))
+			return;
+
+		setCursor(Cursor.WAIT);
+
 	}
-	
+
 	public void setDefault() {
-		this.scene.setCursor(Cursor.DEFAULT);
+
+		if (this.cursor.equals(Cursor.DEFAULT))
+			return;
+
+		setCursor(Cursor.DEFAULT);
+
+	}
+
+	private void setCursor(Cursor cursor) {
+
+		this.cursor = cursor;
+		this.scene.setCursor(this.cursor);
+
 	}
 
 }
