@@ -8,8 +8,10 @@ import enums.EColor;
 import enums.ESubType;
 import managers.Credentials;
 import managers.ListsManager;
+import utils.AnimationTimerFX;
 import utils.ArrayList;
 import utils.HashMap;
+import utils.Interfaces.IUpdateAble;
 import utils.Numeric;
 import utils.TextIndicator;
 import utils.Vector2;
@@ -175,7 +177,7 @@ public enum ModelStatistics {
 
 	}
 
-	private class TextIndicatorNumeric {
+	private class TextIndicatorNumeric implements IUpdateAble {
 
 		private TextIndicator textIndicator = new TextIndicator(0);
 		private Numeric numeric = new Numeric(0);
@@ -195,11 +197,14 @@ public enum ModelStatistics {
 		}
 
 		public void reset() {
+
 			this.numeric.set(0);
-			update();
+			AnimationTimerFX.INSTANCE.updateNextFrame(this);
+
 		}
 
-		private void update() {
+		@Override
+		public void update() {
 
 			this.textIndicator.setText(this.numeric.get());
 			this.textIndicator.relocateCenter(this.vector2);
